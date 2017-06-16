@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>登录</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+    <ion-item>
+      <ion-label color="primary" floating>用户名</ion-label>
+      <ion-input type="text" formControlName="userID"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>密码</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <button ion-button block type="submit" [disabled]="loginForm.invalid">登录</button>
+  </form>
+</ion-content>
