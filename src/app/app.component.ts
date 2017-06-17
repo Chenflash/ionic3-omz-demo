@@ -37,7 +37,7 @@ export class MyApp {
       this.splashScreen.hide();
 
       // Open Login Form
-      let loginPage = this.modalCtrl.create(LoginPage);
+      let loginPage = this.modalCtrl.create(LoginPage, null, { enableBackdropDismiss: false });
       loginPage.present();
     });
   }
