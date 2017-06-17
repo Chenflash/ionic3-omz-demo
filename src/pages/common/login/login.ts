@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 import { ViewController, ToastController } from 'ionic-angular';
+import { Session } from '../../../providers/sessions/session';
 
 @Component({
   selector: 'page-login',
@@ -15,7 +16,8 @@ export class LoginPage {
     private viewCtrl: ViewController,
     private toastCtrl: ToastController,
     private formBuilder: FormBuilder,
-    private http: Http
+    private http: Http,
+    private session: Session
   ) { }
 
   ngOnInit() {
@@ -31,6 +33,11 @@ export class LoginPage {
       .subscribe(clientUserInfo => {
         if (!clientUserInfo.ResponseException) {
           console.dir(clientUserInfo);
+
+          this.session.UserInfo.UserID = clientUserInfo.UserID;
+          this.session.UserInfo.UserName = clientUserInfo.UserName;
+          this.session.SessionID = clientUserInfo.SessionID;
+          
           this.viewCtrl.dismiss();
         } else {
           console.dir(clientUserInfo);
