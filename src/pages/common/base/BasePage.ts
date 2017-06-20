@@ -1,12 +1,12 @@
 import { OnInit } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 
-export class BasePage implements OnInit {
+export abstract class BasePage implements OnInit {
     constructor() { }
-    
-    //constructor(protected toastCtrl: ToastController) { }
+
+    protected OnInitialize() { }
 
     ngOnInit() {
-        console.dir('BasePage：ngOnInit method has been called.');
+        this.OnInitialize();
     }
 }

@@ -2,6 +2,10 @@ import { BasePage } from './BasePage';
 
 export class BusinessPage extends BasePage {
 
+    protected OnInitialize() {
+        super.OnInitialize();
+    }
+
     protected OnQery(): void { }
 
     protected OnValidation(): void { }

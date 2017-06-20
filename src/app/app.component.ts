@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/common/login/login';
+import { Session } from '../providers/sessions/session';
+import { ClientUserInfo } from '../providers/sessions/clientUserInfo';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,7 +22,8 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController,
+    private session: Session) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -36,7 +39,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      // Open Login Form
+      // Open Login Page
       let loginPage = this.modalCtrl.create(LoginPage, null, { enableBackdropDismiss: false });
       loginPage.present();
     });
