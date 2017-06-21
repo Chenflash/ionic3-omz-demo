@@ -1,4 +1,5 @@
 import { BasePage } from './BasePage';
+import { Http } from '@angular/http';
 
 export class BusinessPage extends BasePage {
 
@@ -6,13 +7,13 @@ export class BusinessPage extends BasePage {
         super.OnInitialize();
     }
 
-    protected OnQery(): void { }
+    protected OnQery(http: Http): void { }
 
-    protected OnValidation(): void { }
+    protected OnValidation(http: Http): void { }
 
-    protected OnAddNew(): void { }
+    protected OnAddNew(http: Http): void { }
 
-    protected OnUpdate(): void { }
+    protected OnUpdate(http: Http): void { }
 
-    protected OnDelete(): void { }
+    protected OnDelete(http: Http): void { }
 }

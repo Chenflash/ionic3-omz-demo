@@ -12,7 +12,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import './rxjs-extensions';
+
 import { Session } from '../providers/sessions/session';
+import { AlertService } from '../providers/services/AlertService';
+import { HttpService } from '../providers/services/HttpService';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { Session } from '../providers/sessions/session';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    forwardRef(() => Session)
+    forwardRef(() => Session),
+    forwardRef(() => AlertService),
+    forwardRef(() => HttpService)
   ]
 })
 export class AppModule { }

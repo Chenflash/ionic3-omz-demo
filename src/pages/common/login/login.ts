@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Http } from '@angular/http';
-import { ViewController, ToastController, AlertController } from 'ionic-angular';
+import { ViewController, AlertController } from 'ionic-angular';
 import { Session } from '../../../providers/sessions/session';
+import { AlertService } from '../../../providers/services/AlertService';
+import { HttpService } from '../../../providers/services/HttpService';
 import { BasePage } from '../base/BasePage';
 
 @Component({
@@ -16,15 +17,15 @@ export class LoginPage extends BasePage {
   constructor(
     private viewCtrl: ViewController,
     private formBuilder: FormBuilder,
-    private http: Http,
     private session: Session,
-    private toastCtrl: ToastController,
-    private alertCtrl: AlertController
+    private alertService: AlertService,
+    private httpService: HttpService
   ) {
     super();
   }
 
-  ngOnInit() {
+  protected OnInitialize() {
+    super.OnInitialize();
     this.loginForm = this.formBuilder.group({
       userID: ['', [Validators.required]],
       password: ['']
@@ -32,24 +33,14 @@ export class LoginPage extends BasePage {
   }
 
   onSubmit({ value, valid }) {
-    this.http.post('http://localhost:8088/api/Account/Login', value)
-      .map(result => result.json())
-      .subscribe(result => {
-        if (!result.ResponseException) {
-          // cache session info
-          this.session.UserInfo.UserID = result.UserID;
-          this.session.UserInfo.UserName = result.UserName;
-          this.session.SessionID = result.SessionID;
-          // dismiss login page
-          this.viewCtrl.dismiss();
-        } else {
-          // display alert
-          this.alertCtrl.create({
-            title: 'Login Failed!',
-            subTitle: `${result.ResponseException.ErrorID}: ${result.ResponseException.ErrorMessage}`,
-            buttons: ['OK']
-          }).present();
-        }
-      }, error => console.dir(error));
+    this.httpService.Post('Account', 'Login', value,
+      (data, extraInfo): void => {
+        // save to session cache 
+        this.session.SessionID = data.SessionID;
+        this.session.UserInfo.UserID = data.UserID;
+        this.session.UserInfo.UserName = data.UserName;
+        // close modal 
+        this.viewCtrl.dismiss();
+      });
   }
 }
