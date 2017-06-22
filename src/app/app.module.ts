@@ -16,6 +16,7 @@ import './rxjs-extensions';
 import { Session } from '../providers/sessions/session';
 import { AlertService } from '../providers/services/AlertService';
 import { HttpService } from '../providers/services/HttpService';
+import { LoadingService } from '../providers/services/LoadingService';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { HttpService } from '../providers/services/HttpService';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     forwardRef(() => Session),
     forwardRef(() => AlertService),
-    forwardRef(() => HttpService)
+    forwardRef(() => HttpService),
+    forwardRef(() => LoadingService)
   ]
 })
 export class AppModule { }
