@@ -5,7 +5,10 @@ import { LoadingController, Loading } from 'ionic-angular';
 export class LoadingService {
     private loading: Loading = null;
 
-    constructor(private loadingCtrl: LoadingController) { }
+    constructor(
+        private loadingCtrl: LoadingController
+    ) {
+    }
 
     public ShowWaitLoading() {
         if (!this.loading) {

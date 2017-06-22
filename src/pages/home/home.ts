@@ -1,20 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { Session } from '../../providers/sessions/session';
-import { BusinessPage } from '../common/base/BusinessPage';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+    templateUrl: "Home.html"
 })
-export class HomePage extends BusinessPage implements OnInit {
-
-  constructor(
-    public navCtrl: NavController,
-    private session: Session) {
-    super();
-  }
-
-  OnInitialize() {
-  }
+export class HomePage {
 }

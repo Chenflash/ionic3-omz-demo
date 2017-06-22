@@ -1,19 +1,40 @@
 import { BasePage } from './BasePage';
-import { Http } from '@angular/http';
+import { BusinessService } from '../../../providers/services/BusinessService';
 
 export class BusinessPage extends BasePage {
 
-    protected OnInitialize() {
-        super.OnInitialize();
+    protected controller: string;
+    protected dataBind: any;
+    protected extraInfo: any;
+    private service: BusinessService;
+
+    constructor(
+        controller: string,
+        businessService: BusinessService
+    ) {
+        super();
+
+        this.controller = controller;
+        this.service = businessService;
     }
 
-    protected OnQery(http: Http): void { }
+    protected OnInitialize() {
+        this.OnQery();
+    }
 
-    protected OnValidation(http: Http): void { }
+    protected OnQery(): void {
+        this.service.Query(this.controller, this.dataBind, this.extraInfo, this.OnQuerySuccess)
+    }
 
-    protected OnAddNew(http: Http): void { }
+    protected OnQuerySuccess(data: any, extroInfo: any): void {
+        console.dir(data);
+    }
 
-    protected OnUpdate(http: Http): void { }
+    protected OnValidation(): void { }
 
-    protected OnDelete(http: Http): void { }
+    protected OnAddNew(): void { }
+
+    protected OnUpdate(): void { }
+
+    protected OnDelete(): void { }
 }
