@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/common/login/login';
-import { UnitPage } from '../pages/test/Unit';
+import { UnitPage } from '../pages/lookup/Unit';
 
 import { Session } from '../providers/sessions/session';
 import { ClientUserInfo } from '../providers/sessions/clientUserInfo';

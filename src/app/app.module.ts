@@ -7,7 +7,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/common/login/login';
 import { HomePage } from '../pages/home/home';
-import { UnitPage } from '../pages/test/Unit';
+import { UnitPage } from '../pages/lookup/Unit';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';

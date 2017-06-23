@@ -1,26 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './HttpService';
-import { LoadingService } from './LoadingService';
-import { AlertService } from './AlertService';
-import { ToastService } from './ToastService';
 import { Session } from '../sessions/session';
+import { PDARequest } from '../../models/PDARequest';
+import { PDAResponse } from '../../models/PDAResponse';
+
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class BusinessService {
     constructor(
         private httpService: HttpService,
-        private session: Session,
-        private loadingService: LoadingService,
-        private alertService: AlertService,
-        private toastService: ToastService
+        private session: Session
     ) {
     }
 
-    public Query(controller: string, data: any, extraInfo: any, onQuerySuccess: (resultData: any, extraInfo: any) => void) {
-
-        this.loadingService.ShowWaitLoading();
-
-        let requestData = {
+    public Query(controller: string, data: any, extraInfo: any): Observable<PDAResponse> {
+        let requestData: PDARequest = {
             SysInfo: {
                 SessionID: this.session.SessionID,
                 FunctionID: null, //TODO: Function ID
@@ -28,12 +23,8 @@ export class BusinessService {
             },
             Data: data,
             ExtraInfo: extraInfo
-        }
+        };
 
-        this.httpService.Post(controller, "Query", requestData,
-            (data, extraInfo) => {
-                onQuerySuccess(data, extraInfo);
-                this.loadingService.Dismiss();
-            });
+        return this.httpService.Post(controller, "Query", requestData);
     }
 }

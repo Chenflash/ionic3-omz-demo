@@ -36,16 +36,29 @@ export class LoginPage extends BasePage {
 
   onSubmit({ value, valid }) {
     let loading = this.loadingService.ShowWaitLoading();
-    this.httpService.Post('Account', 'Login', value,
-      (data, extraInfo): void => {
-        // save to session cache 
-        this.session.SessionID = data.SessionID;
-        this.session.UserInfo.UserID = data.UserID;
-        this.session.UserInfo.UserName = data.UserName;
-        // dismiss loading 
+    this.httpService.Post('Account', 'Login', value)
+      .subscribe(response => {
+        if (!response.ResponseException) {
+          // save to session cache 
+          this.session.SessionID = response.Data.SessionID;
+          this.session.UserInfo.UserID = response.Data.UserID;
+          this.session.UserInfo.UserName = response.Data.UserName;
+          // dismiss loading
+          this.loadingService.Dismiss();
+          // dismiss modal 
+          this.viewCtrl.dismiss();
+        } else {
+          // show alert
+          this.alertService.ShowError(
+            response.ResponseException.ErrorID,
+            response.ResponseException.ErrorMessage);
+        }
+      },
+      error => {
+        // show alert
+        this.alertService.ShowError("system", error);
+        // dismiss loading
         this.loadingService.Dismiss();
-        // dismiss modal 
-        this.viewCtrl.dismiss();
       });
   }
 }
