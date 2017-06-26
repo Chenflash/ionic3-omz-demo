@@ -13,7 +13,6 @@ export class HttpService {
     ) { }
 
     public Post(controller: string, action: string, data: any): Observable<PDAResponse> {
-        debugger;
         return this.http.post(`${this.appConfig.WebApiUrl}/${controller}/${action}`, data)
             .map(result => <PDAResponse>(result.json()))
     }

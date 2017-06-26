@@ -3,11 +3,14 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Unit List</ion-title>
+    <ion-title>Unit Favorite</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content padding>
-  <h3>This is Unit Page</h3>
-  {{this.dataBind.UNITT && this.dataBind.UNITT[0].FUNIT}}
+  <ion-list>
+    <button ion-item *ngFor="let item of this.dataBind.UNITT">
+      <h3>{{ item.FUNIT }}</h3>
+      <p>{{ item.FUNITSN }}</p>
+    </button>
+  </ion-list>
 </ion-content>
