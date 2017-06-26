@@ -3,17 +3,18 @@ import { ErrorHandler, NgModule, forwardRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+// configuration
+import { APPCONFIG, APPCONFIG_TOKEN } from './app.config';
+// pages
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/common/login/login';
 import { HomePage } from '../pages/home/home';
 import { UnitPage } from '../pages/lookup/Unit';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-
-import './rxjs-extensions';
-
+// rxjs
+import '../libs/rxjs-extensions';
+// providers
 import { Session } from '../providers/sessions/session';
 import { AlertService } from '../providers/services/AlertService';
 import { HttpService } from '../providers/services/HttpService';
@@ -45,6 +46,7 @@ import { ToastService } from '../providers/services/ToastService';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: APPCONFIG_TOKEN, useValue: APPCONFIG },
     forwardRef(() => Session),
     forwardRef(() => AlertService),
     forwardRef(() => HttpService),
