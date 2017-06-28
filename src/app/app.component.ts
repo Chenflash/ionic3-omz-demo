@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/common/login/login';
-import { UnitPage } from '../pages/lookup/Unit';
+import { UnitFavoritePage } from '../pages/lookup/UnitFavorite';
 
 import { Session } from '../providers/sessions/session';
 import { ClientUserInfo } from '../providers/sessions/clientUserInfo';
@@ -31,7 +31,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Unit', component: UnitPage }
+      { title: 'UnitFavorite', component: UnitFavoritePage }
     ];
   }
 

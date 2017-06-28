@@ -52,6 +52,8 @@ export class LoginPage extends BasePage {
           this.alertService.ShowError(
             response.ResponseException.ErrorID,
             response.ResponseException.ErrorMessage);
+          // dismiss loading
+          this.loadingService.Dismiss();
         }
       },
       error => {

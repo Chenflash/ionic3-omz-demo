@@ -5,6 +5,7 @@ import { AlertService } from '../../../providers/services/AlertService';
 
 export class BusinessPage extends BasePage {
 
+    protected dataSource: any = {};
     protected dataBind: any = {};
     protected extraInfo: any = {};
 
@@ -43,6 +44,8 @@ export class BusinessPage extends BasePage {
                     this.alertService.ShowError(
                         response.ResponseException.ErrorID,
                         response.ResponseException.ErrorMessage);
+                    // dismiss loading
+                    this.loadingService.Dismiss();
                 }
             },
             error => {
@@ -55,7 +58,7 @@ export class BusinessPage extends BasePage {
 
     protected OnQuerySuccess(data: any, extraInfo: any) {
         this.dataBind = data;
-        this.extraInfo = extraInfo
+        this.extraInfo = extraInfo;
     }
 
     protected OnPreQuery() { }

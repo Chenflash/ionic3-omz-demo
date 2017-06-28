@@ -11,7 +11,8 @@ import { APPCONFIG, APPCONFIG_TOKEN } from './app.config';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/common/login/login';
 import { HomePage } from '../pages/home/home';
-import { UnitPage } from '../pages/lookup/Unit';
+import { UnitFavoritePage } from '../pages/lookup/UnitFavorite';
+import { UnitEntryPage } from '../pages/lookup/UnitEntry';
 // rxjs
 import '../libs/rxjs-extensions';
 // providers
@@ -27,7 +28,8 @@ import { ToastService } from '../providers/services/ToastService';
     MyApp,
     HomePage,
     LoginPage,
-    UnitPage
+    UnitFavoritePage,
+    UnitEntryPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { ToastService } from '../providers/services/ToastService';
     MyApp,
     HomePage,
     LoginPage,
-    UnitPage
+    UnitFavoritePage,
+    UnitEntryPage
   ],
   providers: [
     StatusBar,
