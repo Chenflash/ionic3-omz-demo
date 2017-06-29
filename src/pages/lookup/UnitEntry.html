@@ -7,14 +7,15 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-list>
+  <form [formGroup]="entryForm" (ngSubmit)="OnUpdate(entryForm)" novalidate>
     <ion-item>
-      <ion-label>Unit</ion-label>
-      <ion-input type="text" value="{{this.dataBind.UNITT[0]?.FUNIT}}"></ion-input>
+      <ion-label color="primary">Unit</ion-label>
+      <ion-input type="text" formControlName="FUNIT" value="{{this.dataBind.UNITT[0]?.FUNIT}}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Unit Name</ion-label>
-      <ion-input type="text" value="{{this.dataBind.UNITT[0]?.FUNITSN}}"></ion-input>
+      <ion-label color="primary">Unit Name</ion-label>
+      <ion-input type="text" formControlName="FUNITSN" value="{{this.dataBind.UNITT[0]?.FUNITSN}}"></ion-input>
     </ion-item>
-  </ion-list>
+     <button ion-button block type="submit" [disabled]="entryForm.invalid">更新</button>
+  </form>
 </ion-content>

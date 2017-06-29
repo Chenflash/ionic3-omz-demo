@@ -27,4 +27,18 @@ export class BusinessService {
 
         return this.httpService.Post(controller, "Query", requestData);
     }
+
+    public Update(controller: string, data: any, extraInfo: any): Observable<PDAResponse> {
+        let requestData: PDARequest = {
+            SysInfo: {
+                SessionID: this.session.SessionID,
+                FunctionID: null, //TODO: Function ID
+                Updteprg: null, //TODO: Update Programme
+            },
+            Data: data,
+            ExtraInfo: extraInfo
+        };
+
+         return this.httpService.Post(controller, "Update", requestData);
+    }
 }
