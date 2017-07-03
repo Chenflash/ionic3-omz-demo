@@ -9,15 +9,14 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class BusinessService {
     constructor(
-        private services: ServicesPackage,
-        private session: Session
+        private services: ServicesPackage
     ) {
     }
 
     public Query(controller: string, data: any, extraInfo: any): Observable<PDAResponse> {
         let requestData: PDARequest = {
             SysInfo: {
-                SessionID: this.session.SessionID,
+                SessionID: Session.Instance.SessionID,
                 FunctionID: null, //TODO: Function ID
                 Updteprg: null, //TODO: Update Programme
             },
@@ -31,7 +30,7 @@ export class BusinessService {
     public Update(controller: string, data: any, extraInfo: any): Observable<PDAResponse> {
         let requestData: PDARequest = {
             SysInfo: {
-                SessionID: this.session.SessionID,
+                SessionID: Session.Instance.SessionID,
                 FunctionID: null, //TODO: Function ID
                 Updteprg: null, //TODO: Update Programme
             },
@@ -39,6 +38,6 @@ export class BusinessService {
             ExtraInfo: extraInfo
         };
 
-         return this.services.HttpService.Post(controller, "Update", requestData);
+        return this.services.HttpService.Post(controller, "Update", requestData);
     }
 }

@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ClientUserInfo } from './clientUserInfo';
 
-@Injectable()
 export class Session {
   private sessionID: string;
-  private userInfo: ClientUserInfo;
+  private userInfo: ClientUserInfo = new ClientUserInfo();
+
+  // singleton instance
+  private static instance: Session = new Session();
+
+  public static get Instance(): Session {
+    return Session.instance;
+  }
 
   public get UserInfo(): ClientUserInfo {
     return this.userInfo;
@@ -23,7 +29,7 @@ export class Session {
   }
 
   constructor() {
-    this.userInfo = new ClientUserInfo();
+    Session.instance = this;
   }
 
   public Clear() {

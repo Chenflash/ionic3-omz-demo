@@ -4,7 +4,6 @@ import { NavController, NavParams } from 'ionic-angular';
 import { EntryBasePage } from '../common/base/EntryBasePage';
 import { BusinessService } from '../../providers/services/BusinessService';
 import { ServicesPackage } from '../../providers/services/ServicesPackage';
-import { Session } from '../../providers/sessions/session';
 
 @Component({
     templateUrl: "UnitEntry.html"
@@ -15,14 +14,12 @@ export class UnitEntryPage extends EntryBasePage {
         protected navParam: NavParams,
         protected formBuilder: FormBuilder,
         protected businessService: BusinessService,
-        protected services: ServicesPackage,
-        protected session: Session
+        protected services: ServicesPackage
     ) {
         super("Unit",
             navParam,
             businessService,
-            services,
-            session
+            services
         );
 
         this.dataBind.UNITT = [];

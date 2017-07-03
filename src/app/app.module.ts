@@ -16,7 +16,6 @@ import { UnitEntryPage } from '../pages/lookup/UnitEntry';
 // rxjs
 import '../libs/rxjs-extensions';
 // providers
-import { Session } from '../providers/sessions/session';
 import { AlertService } from '../providers/services/AlertService';
 import { HttpService } from '../providers/services/HttpService';
 import { LoadingService } from '../providers/services/LoadingService';
@@ -52,7 +51,6 @@ import { ServicesPackage } from '../providers/services/ServicesPackage';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: APPCONFIG_TOKEN, useValue: APPCONFIG },
-    forwardRef(() => Session),
     forwardRef(() => AlertService),
     forwardRef(() => HttpService),
     forwardRef(() => LoadingService),

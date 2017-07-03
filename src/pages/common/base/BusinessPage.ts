@@ -7,8 +7,7 @@ import { Session } from '../../../providers/sessions/session';
 
 export abstract class BusinessPage extends BasePage {
     constructor(
-        protected services: ServicesPackage,
-        protected session: Session
+        protected services: ServicesPackage
     ) {
         super();
     }
@@ -22,7 +21,7 @@ export abstract class BusinessPage extends BasePage {
                 if (exception.ErrorID === "000500") {
                     // session timeout
                     // clear session
-                    this.session.Clear();
+                    Session.Instance.Clear();
                     // Open Login Page
                     let loginPage = this.services.ModalService.ShowModalPage(LoginPage, null);
                     loginPage.present();

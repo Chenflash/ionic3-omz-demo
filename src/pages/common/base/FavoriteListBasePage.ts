@@ -1,7 +1,6 @@
 import { BusinessPage } from './BusinessPage';
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
-import { Session } from '../../../providers/sessions/session';
 
 export class FavoriteListBasePage extends BusinessPage {
     protected dataBind: any = {};
@@ -13,10 +12,9 @@ export class FavoriteListBasePage extends BusinessPage {
     constructor(
         controller: string,
         protected businessService: BusinessService,
-        protected services: ServicesPackage,
-        protected session: Session
+        protected services: ServicesPackage
     ) {
-        super(services, session);
+        super(services);
 
         this.controller = controller;
         this.service = businessService;

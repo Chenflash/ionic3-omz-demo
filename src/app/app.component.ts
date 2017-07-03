@@ -4,12 +4,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ModalService } from '../providers/services/ModalService';
+import { Session } from '../providers/sessions/session';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/common/login/login';
 import { UnitFavoritePage } from '../pages/lookup/UnitFavorite';
 
-import { Session } from '../providers/sessions/session';
 import { ClientUserInfo } from '../providers/sessions/clientUserInfo';
 
 @Component({
@@ -26,8 +26,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public modalSevice: ModalService,
-    private session: Session) {
+    public modalSevice: ModalService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation

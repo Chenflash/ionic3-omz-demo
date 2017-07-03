@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ViewController, AlertController } from 'ionic-angular';
 import { Session } from '../../../providers/sessions/session';
-import { AlertService } from '../../../providers/services/AlertService';
-import { HttpService } from '../../../providers/services/HttpService';
-import { LoadingService } from '../../../providers/services/LoadingService';
+import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 import { BasePage } from '../base/BasePage';
 
 @Component({
@@ -18,10 +16,7 @@ export class LoginPage extends BasePage {
   constructor(
     private viewCtrl: ViewController,
     private formBuilder: FormBuilder,
-    private session: Session,
-    private alertService: AlertService,
-    private httpService: HttpService,
-    private loadingService: LoadingService
+    private services: ServicesPackage,
   ) {
     super();
   }
@@ -35,32 +30,32 @@ export class LoginPage extends BasePage {
   }
 
   onSubmit({ value, valid }) {
-    let loading = this.loadingService.ShowWaitLoading();
-    this.httpService.Post('Account', 'Login', value)
+    let loading = this.services.LoadingService.ShowWaitLoading();
+    this.services.HttpService.Post('Account', 'Login', value)
       .subscribe(response => {
         if (!response.ResponseException) {
           // save to session cache 
-          this.session.SessionID = response.Data.SessionID;
-          this.session.UserInfo.UserID = response.Data.UserID;
-          this.session.UserInfo.UserName = response.Data.UserName;
+          Session.Instance.SessionID = response.Data.SessionID;
+          Session.Instance.UserInfo.UserID = response.Data.UserID;
+          Session.Instance.UserInfo.UserName = response.Data.UserName;
           // dismiss loading
-          this.loadingService.Dismiss();
+          this.services.LoadingService.Dismiss();
           // dismiss modal 
           this.viewCtrl.dismiss();
         } else {
           // show alert
-          this.alertService.ShowError(
+          this.services.AlertService.ShowError(
             response.ResponseException.ErrorID,
             response.ResponseException.ErrorMessage);
           // dismiss loading
-          this.loadingService.Dismiss();
+          this.services.LoadingService.Dismiss();
         }
       },
       error => {
         // show alert
-        this.alertService.ShowError("system", error);
+        this.services.AlertService.ShowError("system", error);
         // dismiss loading
-        this.loadingService.Dismiss();
+        this.services.LoadingService.Dismiss();
       });
   }
 }
