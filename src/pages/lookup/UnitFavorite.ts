@@ -3,9 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { FavoriteListBasePage } from '../common/base/FavoriteListBasePage';
 import { UnitEntryPage } from './UnitEntry';
 import { BusinessService } from '../../providers/services/BusinessService';
-import { LoadingService } from '../../providers/services/LoadingService';
-import { AlertService } from '../../providers/services/AlertService';
-import { ModalService } from '../../providers/services/ModalService';
+import { ServicesPackage } from '../../providers/services/ServicesPackage';
 import { Session } from '../../providers/sessions/session';
 
 @Component({
@@ -17,16 +15,12 @@ export class UnitFavoritePage extends FavoriteListBasePage {
         protected navCtrl: NavController,
         protected navParam: NavParams,
         protected businessService: BusinessService,
-        protected loadingService: LoadingService,
-        protected alertService: AlertService,
-        protected modalService: ModalService,
+        protected services: ServicesPackage,
         protected session: Session
     ) {
         super("Unit",
             businessService,
-            loadingService,
-            alertService,
-            modalService,
+            services,
             session
         );
     }

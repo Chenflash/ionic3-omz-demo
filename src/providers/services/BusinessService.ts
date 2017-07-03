@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from './HttpService';
+import { ServicesPackage } from './ServicesPackage';
 import { Session } from '../sessions/session';
 import { PDARequest } from '../../models/PDARequest';
 import { PDAResponse } from '../../models/PDAResponse';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class BusinessService {
     constructor(
-        private httpService: HttpService,
+        private services: ServicesPackage,
         private session: Session
     ) {
     }
@@ -25,7 +25,7 @@ export class BusinessService {
             ExtraInfo: extraInfo
         };
 
-        return this.httpService.Post(controller, "Query", requestData);
+        return this.services.HttpService.Post(controller, "Query", requestData);
     }
 
     public Update(controller: string, data: any, extraInfo: any): Observable<PDAResponse> {
@@ -39,6 +39,6 @@ export class BusinessService {
             ExtraInfo: extraInfo
         };
 
-         return this.httpService.Post(controller, "Update", requestData);
+         return this.services.HttpService.Post(controller, "Update", requestData);
     }
 }
