@@ -1,11 +1,13 @@
 import { NavController, NavParams } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
-import { BasePage } from './BasePage';
+import { BusinessPage } from './BusinessPage';
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { LoadingService } from '../../../providers/services/LoadingService';
 import { AlertService } from '../../../providers/services/AlertService';
+import { ModalService } from '../../../providers/services/ModalService';
+import { Session } from '../../../providers/sessions/session';
 
-export class EntryBasePage extends BasePage {
+export class EntryBasePage extends BusinessPage {
     protected entryForm: FormGroup;
     protected dataBind: any = {};
     protected extraInfo: any = {};
@@ -20,8 +22,11 @@ export class EntryBasePage extends BasePage {
         protected businessService: BusinessService,
         protected loadingService: LoadingService,
         protected alertService: AlertService,
+        protected modalService: ModalService,
+        protected session: Session
     ) {
-        super();
+        super(alertService, modalService, session);
+
         this.controller = controller;
         this.service = businessService;
 
@@ -48,19 +53,17 @@ export class EntryBasePage extends BasePage {
                     // post query
                     this.OnPostQuery();
                 } else {
-                    // show alert
-                    this.alertService.ShowError(
-                        response.ResponseException.ErrorID,
-                        response.ResponseException.ErrorMessage);
                     // dismiss loading
                     this.loadingService.Dismiss();
+                    // show alert
+                    this.ProcessResponseException(response.ResponseException);
                 }
             },
             error => {
-                // show alert
-                this.alertService.ShowError("system", error);
                 // dismiss loading
                 this.loadingService.Dismiss();
+                // show alert
+                this.alertService.ShowError("system", error);
             });
     }
 
@@ -89,12 +92,10 @@ export class EntryBasePage extends BasePage {
                     // post query
                     this.OnPostUpdate();
                 } else {
-                    // show alert
-                    this.alertService.ShowError(
-                        response.ResponseException.ErrorID,
-                        response.ResponseException.ErrorMessage);
                     // dismiss loading
                     this.loadingService.Dismiss();
+                    // show alert
+                    this.ProcessResponseException(response.ResponseException);
                 }
             },
             error => {

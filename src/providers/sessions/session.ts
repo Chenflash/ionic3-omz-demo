@@ -25,4 +25,8 @@ export class Session {
   constructor() {
     this.userInfo = new ClientUserInfo();
   }
+
+  public Clear() {
+    this.sessionID = "";
+  }
 }

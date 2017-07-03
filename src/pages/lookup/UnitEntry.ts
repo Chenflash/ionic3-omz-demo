@@ -5,6 +5,8 @@ import { EntryBasePage } from '../common/base/EntryBasePage';
 import { BusinessService } from '../../providers/services/BusinessService';
 import { LoadingService } from '../../providers/services/LoadingService';
 import { AlertService } from '../../providers/services/AlertService';
+import { ModalService } from '../../providers/services/ModalService';
+import { Session } from '../../providers/sessions/session';
 
 @Component({
     templateUrl: "UnitEntry.html"
@@ -16,13 +18,17 @@ export class UnitEntryPage extends EntryBasePage {
         protected formBuilder: FormBuilder,
         protected businessService: BusinessService,
         protected loadingService: LoadingService,
-        protected alertService: AlertService
+        protected alertService: AlertService,
+        protected modalService: ModalService,
+        protected session: Session
     ) {
         super("Unit",
             navParam,
             businessService,
             loadingService,
-            alertService
+            alertService,
+            modalService,
+            session
         );
 
         this.dataBind.UNITT = [];

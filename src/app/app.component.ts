@@ -3,6 +3,8 @@ import { Nav, Platform, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { ModalService } from '../providers/services/ModalService';
+
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/common/login/login';
 import { UnitFavoritePage } from '../pages/lookup/UnitFavorite';
@@ -24,7 +26,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public modalCtrl: ModalController,
+    public modalSevice: ModalService,
     private session: Session) {
     this.initializeApp();
 
@@ -43,7 +45,7 @@ export class MyApp {
       this.splashScreen.hide();
 
       // Open Login Page
-      let loginPage = this.modalCtrl.create(LoginPage, null, { enableBackdropDismiss: false });
+      let loginPage = this.modalSevice.ShowModalPage(LoginPage, null);
       loginPage.present();
     });
   }

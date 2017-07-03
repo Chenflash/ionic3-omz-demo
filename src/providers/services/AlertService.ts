@@ -7,11 +7,16 @@ export class AlertService {
         private alertCtrl: AlertController
     ) { }
 
-    public ShowError(errorID: string, errorMessage: string) {
+    public ShowError(errorID: string, errorMessage: string, onOkClick: () => void = () => { }) {
         this.alertCtrl.create({
             title: `Error`,
             message: `${errorID}: ${errorMessage}`,
-            buttons: ['OK']
+            buttons: [
+                {
+                    text: "OK",
+                    handler: () => onOkClick()
+                }
+            ]
         }).present();
     }
 }
