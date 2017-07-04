@@ -1,16 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, ModalController } from 'ionic-angular';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ModalService } from '../providers/services/ModalService';
-import { Session } from '../providers/sessions/session';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/common/login/login';
 import { UnitFavoritePage } from '../pages/lookup/UnitFavorite';
-
-import { ClientUserInfo } from '../providers/sessions/clientUserInfo';
 
 @Component({
   templateUrl: 'app.html'

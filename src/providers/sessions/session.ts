@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { ClientUserInfo } from './clientUserInfo';
 
 export class Session {

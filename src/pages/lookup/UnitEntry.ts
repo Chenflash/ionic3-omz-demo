@@ -33,7 +33,7 @@ export class UnitEntryPage extends EntryBasePage {
         });
     }
 
-    protected OnUpdate({ value, valid }): void {
+    protected OnUpdate({ value }): void {
         let dataDto = JSON.parse(JSON.stringify(this.dataBind));
         dataDto.UNITT = [];
         dataDto.UNITT.push(value);

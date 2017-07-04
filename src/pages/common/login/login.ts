@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ViewController, AlertController } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
 import { Session } from '../../../providers/sessions/session';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 import { BasePage } from '../base/BasePage';
@@ -29,8 +29,8 @@ export class LoginPage extends BasePage {
     });
   }
 
-  onSubmit({ value, valid }) {
-    let loading = this.services.LoadingService.ShowWaitLoading();
+  onSubmit({ value }) {
+    this.services.LoadingService.ShowWaitLoading();
     this.services.HttpService.Post('Account', 'Login', value)
       .subscribe(response => {
         if (!response.ResponseException) {

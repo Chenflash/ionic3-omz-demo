@@ -1,4 +1,3 @@
-import { OnInit } from '@angular/core';
 import { BasePage } from './BasePage';
 import { LoginPage } from '../login/login';
 import { PDAResponseException } from '../../../models/PDAResponse';

@@ -1,4 +1,4 @@
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
 import { BusinessPage } from './BusinessPage';
 import { BusinessService } from '../../../providers/services/BusinessService';
@@ -83,6 +83,8 @@ export class EntryBasePage extends BusinessPage {
                     this.OnUpdateSuccess(response.Data, response.ExtraInfo);
                     // dismiss loading
                     this.services.LoadingService.Dismiss();
+                    // show toast
+                    this.services.ToastService.Show("Update Successfully.");
                     // post query
                     this.OnPostUpdate();
                 } else {
