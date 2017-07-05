@@ -1,6 +1,7 @@
 import { NavParams } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
 import { BusinessPage } from './BusinessPage';
+import { FormOpenMode } from './FormOpenMode';
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 
@@ -10,6 +11,7 @@ export class EntryBasePage extends BusinessPage {
     protected extraInfo: any = {};
     protected dataDto: any = {};
 
+    private openMode: FormOpenMode;
     private controller: string;
     private service: BusinessService;
 

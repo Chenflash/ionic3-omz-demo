@@ -22,6 +22,7 @@ import { LoadingService } from '../providers/services/LoadingService';
 import { BusinessService } from '../providers/services/BusinessService';
 import { ToastService } from '../providers/services/ToastService';
 import { ModalService } from '../providers/services/ModalService';
+import { ActionSheetService } from '../providers/services/ActionSheetService';
 import { ServicesPackage } from '../providers/services/ServicesPackage';
 
 @NgModule({
@@ -58,6 +59,7 @@ import { ServicesPackage } from '../providers/services/ServicesPackage';
     forwardRef(() => ModalService),
     forwardRef(() => ServicesPackage),
     forwardRef(() => BusinessService),
+    forwardRef(() => ActionSheetService)
   ]
 })
 export class AppModule { }

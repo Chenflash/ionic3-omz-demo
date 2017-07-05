@@ -4,6 +4,7 @@ import { HttpService } from './HttpService';
 import { LoadingService } from './LoadingService';
 import { ModalService } from './ModalService';
 import { ToastService } from './ToastService';
+import { ActionSheetService } from './ActionSheetService';
 
 @Injectable()
 export class ServicesPackage {
@@ -13,6 +14,7 @@ export class ServicesPackage {
         private loadingService: LoadingService,
         private modalService: ModalService,
         private toastService: ToastService,
+        private actionSheetService: ActionSheetService
     ) { }
 
     public get AlertService() {
@@ -33,5 +35,9 @@ export class ServicesPackage {
 
     public get ToastService() {
         return this.toastService;
+    }
+
+    public get ActionSheetService() {
+        return this.actionSheetService;
     }
 }

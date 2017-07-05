@@ -25,4 +25,8 @@ export class UnitFavoritePage extends FavoriteListBasePage {
     onItemClick(item, event) {
         this.navCtrl.push(UnitEntryPage, item);
     }
+
+    onHold(item, event) {
+        this.services.ActionSheetService.Show(item);
+    }
 }
