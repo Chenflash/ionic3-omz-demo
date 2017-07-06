@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, forwardRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, IonicPageModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 // configuration
@@ -30,22 +30,20 @@ import { ServicesPackage } from '../providers/services/ServicesPackage';
     MyApp,
     HomePage,
     LoginPage,
-    UnitFavoritePage,
-    UnitEntryPage
+    UnitFavoritePage
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     LoginPage,
-    UnitFavoritePage,
-    UnitEntryPage
+    UnitFavoritePage
   ],
   providers: [
     StatusBar,

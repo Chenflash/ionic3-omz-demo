@@ -25,7 +25,7 @@ export class EntryBasePage extends BusinessPage {
 
         this.controller = controller;
         this.service = businessService;
-
+        
         if (this.navParam.data) {
             this.dataBind.CONDITION = [];
             this.dataBind.CONDITION.push(this.navParam.data);

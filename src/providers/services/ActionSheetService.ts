@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActionSheetController } from 'ionic-angular';
+import { ActionSheetController, ActionSheet } from 'ionic-angular';
+import { BusinessPage } from '../../pages/common/base/BusinessPage';
 
 @Injectable()
 export class ActionSheetService {
@@ -7,35 +8,14 @@ export class ActionSheetService {
         private actionsheetCtrl: ActionSheetController
     ) { }
 
-    public Show(item: any) {
-        this.actionsheetCtrl.create({
-            buttons: [
-                {
-                    text: 'AddNew',
-                    handler: () => {
-                        console.log('AddNew');
-                    }
-                }, {
-                    text: 'Modify',
-                    handler: () => {
-                        console.log('Modify');
-                    }
-                },
-                {
-                    text: 'Delete',
-                    role: 'destructive',
-                    handler: () => {
-                        console.log('Delete');
-                    }
-                },
-                {
-                    text: 'Cancel',
-                    role: 'cancel',
-                    handler: () => {
-                        console.log('Cancel');
-                    }
-                }
-            ]
-        });
+    public Init(title: string, subTitle: string,
+        buttons: { text?: string; role?: string; handler?: () => boolean | void; }[]): ActionSheet {
+        if (buttons) {
+            return this.actionsheetCtrl.create({
+                title: title,
+                subTitle: subTitle,
+                buttons: buttons
+            })
+        }
     }
 }

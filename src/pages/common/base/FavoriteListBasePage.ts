@@ -1,4 +1,5 @@
 import { BusinessPage } from './BusinessPage';
+import { ActionSheet, NavController } from 'ionic-angular';
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 
@@ -9,10 +10,17 @@ export class FavoriteListBasePage extends BusinessPage {
     private controller: string;
     private service: BusinessService;
 
+    private selectedItem: any;
+
+    // action sheet 
+    protected actionSheet: ActionSheet;
+    protected actionSheetButtons: { text?: string; role?: string; handler?: () => boolean | void; }[];
+
     constructor(
         controller: string,
         protected businessService: BusinessService,
-        protected services: ServicesPackage
+        protected services: ServicesPackage,
+        protected navCtrl: NavController
     ) {
         super(services);
 
@@ -21,6 +29,7 @@ export class FavoriteListBasePage extends BusinessPage {
     }
 
     protected OnInitialize() {
+        this.InitActionSheet();
         this.OnPreQuery();
         this.OnQery();
     }
@@ -58,4 +67,47 @@ export class FavoriteListBasePage extends BusinessPage {
 
     protected OnPreQuery() { }
     protected OnPostQuery() { }
+
+    private InitActionSheet() {
+        this.actionSheetButtons = this.InitActionSheetButton();
+        this.actionSheet = this.services.ActionSheetService.Init(null, null, this.actionSheetButtons);
+    }
+
+    protected InitActionSheetButton(): { text?: string; role?: string; handler?: () => boolean | void; }[] {
+        let buttons: { text?: string; role?: string; handler?: () => boolean | void; }[] = [];
+
+        buttons.push({
+            text: 'AddNew',
+            handler: () => {
+                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), this.selectedItem);
+            }
+        });
+
+        buttons.push({
+            text: 'Modify',
+            handler: () => {
+                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), this.selectedItem);
+            }
+        });
+
+        buttons.push({
+            text: 'Delete',
+            role: 'destructive',
+            handler: () => {
+                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), this.selectedItem);
+            }
+        });
+
+        buttons.push({
+            text: 'Cancel',
+            role: 'cancel'
+        });
+
+        return buttons;
+    }
+
+    protected onHold(item, event) {
+        this.selectedItem = item;
+        this.actionSheet.present();
+    }
 }

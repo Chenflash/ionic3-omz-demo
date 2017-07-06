@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { EntryBasePage } from '../common/base/EntryBasePage';
 import { BusinessService } from '../../providers/services/BusinessService';
 import { ServicesPackage } from '../../providers/services/ServicesPackage';
 
+@IonicPage()
 @Component({
     templateUrl: "UnitEntry.html"
 })
