@@ -25,6 +25,8 @@ import { ModalService } from '../providers/services/ModalService';
 import { ActionSheetService } from '../providers/services/ActionSheetService';
 import { ServicesPackage } from '../providers/services/ServicesPackage';
 
+import { UnitEntryPageModule } from '../pages/lookup/UnitEntry.module';
+
 @NgModule({
   declarations: [
     MyApp,
