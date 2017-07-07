@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { EntryBasePage } from '../common/base/EntryBasePage';
 import { BusinessService } from '../../providers/services/BusinessService';
 import { ServicesPackage } from '../../providers/services/ServicesPackage';
+import { PAGE_MASTER_COLLECTION_TOKEN, PAGE_CONTROLLER_TOKEN } from '../common/tokens/PageTokens';
 
 @IonicPage()
 @Component({
-    templateUrl: "UnitEntry.html"
+    templateUrl: "UnitEntry.html",
+    providers: [
+        { provide: PAGE_MASTER_COLLECTION_TOKEN, useValue: "UNITT" },
+        { provide: PAGE_CONTROLLER_TOKEN, useValue: "Unit" }
+    ]
 })
 export class UnitEntryPage extends EntryBasePage {
     constructor(
@@ -15,15 +20,16 @@ export class UnitEntryPage extends EntryBasePage {
         protected navParam: NavParams,
         protected formBuilder: FormBuilder,
         protected businessService: BusinessService,
-        protected services: ServicesPackage
+        protected services: ServicesPackage,
+        @Inject(PAGE_MASTER_COLLECTION_TOKEN) protected masterCollection: string,
+        @Inject(PAGE_CONTROLLER_TOKEN) protected controllerName: string,
     ) {
-        super("Unit",
+        super(controllerName,
+            masterCollection,
             navParam,
             businessService,
             services
         );
-
-        this.dataBind.UNITT = [];
     }
 
     protected OnInitialize() {
@@ -32,13 +38,5 @@ export class UnitEntryPage extends EntryBasePage {
             FUNIT: ['', [Validators.required]],
             FUNITSN: ['']
         });
-    }
-
-    protected OnUpdate({ value }): void {
-        let dataDto = JSON.parse(JSON.stringify(this.dataBind));
-        dataDto.UNITT = [];
-        dataDto.UNITT.push(value);
-
-        super.OnUpdate(dataDto);
     }
 }

@@ -2,7 +2,7 @@ import { BusinessPage } from './BusinessPage';
 import { ActionSheet, NavController } from 'ionic-angular';
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
-import { PDAPageParams, PDAPageOpenMode } from '../../../models/PDAPageParams';
+import { PDAPageOpenOption, PDAPageOpenMode } from '../../../models/PDAPageOpenOption';
 
 export class FavoriteListBasePage extends BusinessPage {
     protected dataBind: any = {};
@@ -79,16 +79,16 @@ export class FavoriteListBasePage extends BusinessPage {
         buttons.push({
             text: 'AddNew',
             handler: () => {
-                let params: PDAPageParams = new PDAPageParams(this.selectedItem, PDAPageOpenMode.AddNew, null);
-                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), params);
+                let options: PDAPageOpenOption = new PDAPageOpenOption(null, PDAPageOpenMode.AddNew, null);
+                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), options);
             }
         });
 
         buttons.push({
             text: 'Modify',
             handler: () => {
-                let params: PDAPageParams = new PDAPageParams(this.selectedItem, PDAPageOpenMode.Modify, null);
-                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), params);
+                let options: PDAPageOpenOption = new PDAPageOpenOption(this.selectedItem, PDAPageOpenMode.Modify, null);
+                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), options);
             }
         });
 
@@ -96,8 +96,8 @@ export class FavoriteListBasePage extends BusinessPage {
             text: 'Delete',
             role: 'destructive',
             handler: () => {
-                let params: PDAPageParams = new PDAPageParams(this.selectedItem, PDAPageOpenMode.Delete, null);
-                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), params);
+                let options: PDAPageOpenOption = new PDAPageOpenOption(this.selectedItem, PDAPageOpenMode.Delete, null);
+                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), options);
             }
         });
 
@@ -115,7 +115,7 @@ export class FavoriteListBasePage extends BusinessPage {
     }
 
     protected onItemClick(item, event) {
-        let params: PDAPageParams = new PDAPageParams(item, PDAPageOpenMode.Modify, null);
-        this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), params);
+        let options: PDAPageOpenOption = new PDAPageOpenOption(item, PDAPageOpenMode.Modify, null);
+        this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), options);
     }
 }

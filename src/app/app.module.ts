@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, forwardRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { IonicApp, IonicErrorHandler, IonicModule, IonicPageModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 // configuration
@@ -12,7 +12,6 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/common/login/login';
 import { HomePage } from '../pages/home/home';
 import { UnitFavoritePage } from '../pages/lookup/UnitFavorite';
-import { UnitEntryPage } from '../pages/lookup/UnitEntry';
 // rxjs
 import '../libs/rxjs-extensions';
 // providers
@@ -24,8 +23,6 @@ import { ToastService } from '../providers/services/ToastService';
 import { ModalService } from '../providers/services/ModalService';
 import { ActionSheetService } from '../providers/services/ActionSheetService';
 import { ServicesPackage } from '../providers/services/ServicesPackage';
-
-import { UnitEntryPageModule } from '../pages/lookup/UnitEntry.module';
 
 @NgModule({
   declarations: [

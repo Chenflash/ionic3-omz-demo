@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActionSheetController, ActionSheet } from 'ionic-angular';
-import { BusinessPage } from '../../pages/common/base/BusinessPage';
+import { ActionSheetController } from 'ionic-angular';
 
 @Injectable()
 export class ActionSheetService {

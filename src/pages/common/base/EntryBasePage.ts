@@ -1,7 +1,7 @@
 import { NavParams } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
 import { BusinessPage } from './BusinessPage';
-import { PDAPageParams, PDAPageOpenMode } from '../../../models/PDAPageParams';
+import { PDAPageOpenOption } from '../../../models/PDAPageOpenOption';
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 
@@ -11,12 +11,13 @@ export class EntryBasePage extends BusinessPage {
     protected extraInfo: any = {};
     protected dataDto: any = {};
 
-    //private openMode: PDAPageOpenMode = PDAPageOpenMode.None;
     private controller: string;
+    private collection: string;
     private service: BusinessService;
 
     constructor(
         controller: string,
+        masterCollection: string,
         protected navParam: NavParams,
         protected businessService: BusinessService,
         protected services: ServicesPackage
@@ -24,15 +25,17 @@ export class EntryBasePage extends BusinessPage {
         super(services);
 
         this.controller = controller;
+        this.collection = masterCollection;
         this.service = businessService;
 
-        let params: PDAPageParams = this.navParam.data;
-
-        debugger;
-        if (params) {
+        let options: PDAPageOpenOption = this.navParam.data;
+        if (options) {
             this.dataBind.CONDITION = [];
-            this.dataBind.CONDITION.push(params.Data);
+            if (options.Data)
+                this.dataBind.CONDITION.push(options.Data);
         }
+
+        this.dataBind[this.collection] = [];
     }
 
     protected OnInitialize() {
@@ -78,8 +81,13 @@ export class EntryBasePage extends BusinessPage {
 
     protected OnAddNew(): void { }
 
-    protected OnUpdate(dataDto: any): void {
+    protected OnUpdate({ value }): void {
         this.OnPreUpdate();
+
+        let dataDto = JSON.parse(JSON.stringify(this.dataBind));
+        dataDto[this.collection] = [];
+        dataDto[this.collection].push(value);
+
         this.services.LoadingService.ShowWaitLoading();
         this.service.Update(this.controller, dataDto, this.extraInfo)
             .subscribe(response => {

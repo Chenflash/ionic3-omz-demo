@@ -1,4 +1,4 @@
-export class PDAPageParams {
+export class PDAPageOpenOption {
     public Data: any;
     public OpenMode: PDAPageOpenMode;
     public ExtraInfo: any;
