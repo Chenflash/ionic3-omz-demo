@@ -22,8 +22,4 @@ export class UnitFavoritePage extends FavoriteListBasePage {
             navCtrl
         );
     }
-
-    onItemClick(item, event) {
-        this.navCtrl.push(UnitEntryPage, item);
-    }
 }

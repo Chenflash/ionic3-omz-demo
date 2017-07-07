@@ -8,14 +8,14 @@ export class ActionSheetService {
         private actionsheetCtrl: ActionSheetController
     ) { }
 
-    public Init(title: string, subTitle: string,
-        buttons: { text?: string; role?: string; handler?: () => boolean | void; }[]): ActionSheet {
+    public Show(title: string, subTitle: string,
+        buttons: { text?: string; role?: string; handler?: () => boolean | void; }[]) {
         if (buttons) {
-            return this.actionsheetCtrl.create({
+            this.actionsheetCtrl.create({
                 title: title,
                 subTitle: subTitle,
                 buttons: buttons
-            })
+            }).present();
         }
     }
 }

@@ -8,7 +8,7 @@
 </ion-header>
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let unit of this.dataBind.UNITT" (click)="onItemClick(unit, $event)" (press)="onHold(unit, $event)">
+    <button ion-item *ngFor="let unit of this.dataBind.UNITT" (click)="onItemClick(unit, $event)" (press)="onItemHold(unit, $event)">
       <h2>{{ unit.FUNIT }}</h2>
       <p>{{ unit.FUNITSN }}</p>
     </button>

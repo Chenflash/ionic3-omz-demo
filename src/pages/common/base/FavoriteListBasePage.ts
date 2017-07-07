@@ -10,7 +10,7 @@ export class FavoriteListBasePage extends BusinessPage {
     private controller: string;
     private service: BusinessService;
 
-    private selectedItem: any;
+    protected selectedItem: any;
 
     // action sheet 
     protected actionSheet: ActionSheet;
@@ -70,7 +70,6 @@ export class FavoriteListBasePage extends BusinessPage {
 
     private InitActionSheet() {
         this.actionSheetButtons = this.InitActionSheetButton();
-        this.actionSheet = this.services.ActionSheetService.Init(null, null, this.actionSheetButtons);
     }
 
     protected InitActionSheetButton(): { text?: string; role?: string; handler?: () => boolean | void; }[] {
@@ -106,8 +105,12 @@ export class FavoriteListBasePage extends BusinessPage {
         return buttons;
     }
 
-    protected onHold(item, event) {
+    protected onItemHold(item, event) {
         this.selectedItem = item;
-        this.actionSheet.present();
+        this.services.ActionSheetService.Show(null, null, this.actionSheetButtons);
+    }
+
+    protected onItemClick(item, event) {
+        this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), item);
     }
 }
