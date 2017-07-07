@@ -1,7 +1,7 @@
 import { NavParams } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
 import { BusinessPage } from './BusinessPage';
-import { FormOpenMode } from './FormOpenMode';
+import { PDAPageParams, PDAPageOpenMode } from '../../../models/PDAPageParams';
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 
@@ -11,7 +11,7 @@ export class EntryBasePage extends BusinessPage {
     protected extraInfo: any = {};
     protected dataDto: any = {};
 
-    private openMode: FormOpenMode;
+    //private openMode: PDAPageOpenMode = PDAPageOpenMode.None;
     private controller: string;
     private service: BusinessService;
 
@@ -25,10 +25,13 @@ export class EntryBasePage extends BusinessPage {
 
         this.controller = controller;
         this.service = businessService;
-        
-        if (this.navParam.data) {
+
+        let params: PDAPageParams = this.navParam.data;
+
+        debugger;
+        if (params) {
             this.dataBind.CONDITION = [];
-            this.dataBind.CONDITION.push(this.navParam.data);
+            this.dataBind.CONDITION.push(params.Data);
         }
     }
 

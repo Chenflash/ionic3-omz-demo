@@ -2,6 +2,7 @@ import { BusinessPage } from './BusinessPage';
 import { ActionSheet, NavController } from 'ionic-angular';
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
+import { PDAPageParams, PDAPageOpenMode } from '../../../models/PDAPageParams';
 
 export class FavoriteListBasePage extends BusinessPage {
     protected dataBind: any = {};
@@ -78,14 +79,16 @@ export class FavoriteListBasePage extends BusinessPage {
         buttons.push({
             text: 'AddNew',
             handler: () => {
-                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), this.selectedItem);
+                let params: PDAPageParams = new PDAPageParams(this.selectedItem, PDAPageOpenMode.AddNew, null);
+                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), params);
             }
         });
 
         buttons.push({
             text: 'Modify',
             handler: () => {
-                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), this.selectedItem);
+                let params: PDAPageParams = new PDAPageParams(this.selectedItem, PDAPageOpenMode.Modify, null);
+                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), params);
             }
         });
 
@@ -93,7 +96,8 @@ export class FavoriteListBasePage extends BusinessPage {
             text: 'Delete',
             role: 'destructive',
             handler: () => {
-                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), this.selectedItem);
+                let params: PDAPageParams = new PDAPageParams(this.selectedItem, PDAPageOpenMode.Delete, null);
+                this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), params);
             }
         });
 
@@ -111,6 +115,7 @@ export class FavoriteListBasePage extends BusinessPage {
     }
 
     protected onItemClick(item, event) {
-        this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), item);
+        let params: PDAPageParams = new PDAPageParams(item, PDAPageOpenMode.Modify, null);
+        this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), params);
     }
 }
