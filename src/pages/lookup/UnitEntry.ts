@@ -4,14 +4,14 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { EntryBasePage } from '../common/base/EntryBasePage';
 import { BusinessService } from '../../providers/services/BusinessService';
 import { ServicesPackage } from '../../providers/services/ServicesPackage';
-import { PAGE_MASTER_COLLECTION_TOKEN, PAGE_CONTROLLER_TOKEN } from '../common/tokens/PageTokens';
+import { MAIN_COLLECTION, CONTROLLER } from '../common/tokens/PageTokens';
 
 @IonicPage()
 @Component({
     templateUrl: "UnitEntry.html",
     providers: [
-        { provide: PAGE_MASTER_COLLECTION_TOKEN, useValue: "UNITT" },
-        { provide: PAGE_CONTROLLER_TOKEN, useValue: "Unit" }
+        { provide: MAIN_COLLECTION, useValue: "UNITT" },
+        { provide: CONTROLLER, useValue: "Unit" }
     ]
 })
 export class UnitEntryPage extends EntryBasePage {
@@ -21,11 +21,12 @@ export class UnitEntryPage extends EntryBasePage {
         protected formBuilder: FormBuilder,
         protected businessService: BusinessService,
         protected services: ServicesPackage,
-        @Inject(PAGE_MASTER_COLLECTION_TOKEN) protected masterCollection: string,
-        @Inject(PAGE_CONTROLLER_TOKEN) protected controllerName: string,
+        @Inject(MAIN_COLLECTION) protected masterCollection: string,
+        @Inject(CONTROLLER) protected controllerName: string,
     ) {
         super(controllerName,
             masterCollection,
+            navCtrl,
             navParam,
             businessService,
             services

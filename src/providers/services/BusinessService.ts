@@ -6,7 +6,7 @@ import { PDAResponse } from '../../models/PDAResponse';
 
 import { Observable } from 'rxjs/Observable';
 
-@Injectable() 
+@Injectable()
 export class BusinessService {
     constructor(
         private services: ServicesPackage
@@ -27,6 +27,20 @@ export class BusinessService {
         return this.services.HttpService.Post(controller, "Query", requestData);
     }
 
+    public AddNew(controller: string, data: any, extraInfo: any): Observable<PDAResponse> {
+        let requestData: PDARequest = {
+            SysInfo: {
+                SessionID: Session.Instance.SessionID,
+                FunctionID: null, //TODO: Function ID
+                Updteprg: null, //TODO: Update Programme
+            },
+            Data: data,
+            ExtraInfo: extraInfo
+        };
+
+        return this.services.HttpService.Post(controller, "AddNew", requestData);
+    }
+
     public Update(controller: string, data: any, extraInfo: any): Observable<PDAResponse> {
         let requestData: PDARequest = {
             SysInfo: {
@@ -39,5 +53,19 @@ export class BusinessService {
         };
 
         return this.services.HttpService.Post(controller, "Update", requestData);
+    }
+
+    public Delete(controller: string, data: any, extraInfo: any): Observable<PDAResponse> {
+        let requestData: PDARequest = {
+            SysInfo: {
+                SessionID: Session.Instance.SessionID,
+                FunctionID: null, //TODO: Function ID
+                Updteprg: null, //TODO: Update Programme
+            },
+            Data: data,
+            ExtraInfo: extraInfo
+        };
+
+        return this.services.HttpService.Post(controller, "Delete", requestData);
     }
 }
