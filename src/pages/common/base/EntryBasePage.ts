@@ -210,6 +210,7 @@ export class EntryBasePage extends BusinessPage {
     }
 
     protected OnDeleteSuccess(data: any, extraInfo: any) {
+        debugger;
         this.navCtrl.pop();
     }
 
@@ -228,7 +229,7 @@ export class EntryBasePage extends BusinessPage {
                 break;
 
             case PDAPageOpenMode.Delete:
-                this.OnDelete(value);
+                this.services.AlertService.ShowConfirmForDelete(() => this.OnDelete(value));
                 break;
 
             default:

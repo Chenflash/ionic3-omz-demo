@@ -19,4 +19,20 @@ export class AlertService {
             ]
         }).present();
     }
+
+    public ShowConfirmForDelete(onOkClick: () => void) {
+        this.alertCtrl.create({
+            title: `Confirm`,
+            message: `Are you sure to delete this record?`,
+            buttons: [
+                {
+                    text: "OK",
+                    handler: () => onOkClick()
+                },
+                {
+                    text: "Cancel"
+                }
+            ]
+        }).present();
+    }
 }
