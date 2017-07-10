@@ -8,7 +8,7 @@ export class ActionSheetService {
     ) { }
 
     public Show(title: string, subTitle: string,
-        buttons: { text?: string; role?: string; handler?: () => boolean | void; }[]) {
+        buttons: { text?: string; role?: string; icon?: string, handler?: () => boolean | void; }[]) {
         if (buttons) {
             this.actionsheetCtrl.create({
                 title: title,

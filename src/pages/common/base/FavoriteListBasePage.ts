@@ -15,7 +15,7 @@ export class FavoriteListBasePage extends BusinessPage {
 
     // action sheet 
     protected actionSheet: ActionSheet;
-    protected actionSheetButtons: { text?: string; role?: string; handler?: () => boolean | void; }[];
+    protected actionSheetButtons: { text?: string; role?: string; icon?: string, handler?: () => boolean | void; }[];
 
     constructor(
         controller: string,
@@ -73,11 +73,12 @@ export class FavoriteListBasePage extends BusinessPage {
         this.actionSheetButtons = this.InitActionSheetButton();
     }
 
-    protected InitActionSheetButton(): { text?: string; role?: string; handler?: () => boolean | void; }[] {
-        let buttons: { text?: string; role?: string; handler?: () => boolean | void; }[] = [];
+    protected InitActionSheetButton(): { text?: string; role?: string; icon?: string, handler?: () => boolean | void; }[] {
+        let buttons: { text?: string; role?: string; icon?: string, handler?: () => boolean | void; }[] = [];
 
         buttons.push({
             text: 'AddNew',
+            icon: 'add-circle',
             handler: () => {
                 let options: PDAPageOpenOption = new PDAPageOpenOption(null, PDAPageOpenMode.AddNew, null);
                 this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), options);
@@ -86,6 +87,7 @@ export class FavoriteListBasePage extends BusinessPage {
 
         buttons.push({
             text: 'Modify',
+            icon: 'settings',
             handler: () => {
                 let options: PDAPageOpenOption = new PDAPageOpenOption(this.selectedItem, PDAPageOpenMode.Modify, null);
                 this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), options);
@@ -95,6 +97,7 @@ export class FavoriteListBasePage extends BusinessPage {
         buttons.push({
             text: 'Delete',
             role: 'destructive',
+            icon: 'trash',
             handler: () => {
                 let options: PDAPageOpenOption = new PDAPageOpenOption(this.selectedItem, PDAPageOpenMode.Delete, null);
                 this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), options);
@@ -103,7 +106,8 @@ export class FavoriteListBasePage extends BusinessPage {
 
         buttons.push({
             text: 'Cancel',
-            role: 'cancel'
+            role: 'cancel',
+            icon: 'undo'
         });
 
         return buttons;
