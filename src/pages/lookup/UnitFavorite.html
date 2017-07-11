@@ -8,9 +8,13 @@
 </ion-header>
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let unit of this.dataBind.UNITT" (click)="onItemClick(unit, $event)" (press)="onItemHold(unit, $event)">
-      <h2>{{ unit.FUNIT }}</h2>
-      <p>{{ unit.FUNITSN }}</p>
+    <button ion-item *ngFor="let item of this.dataBind[this.masterCollection]" (click)="onItemClick(item, $event)" (press)="onItemHold(item, $event)">
+       <ng-container [ngTemplateOutlet]="FavoriteList" [ngTemplateOutletContext]="{$implicit:item}"></ng-container>
     </button>
   </ion-list>
 </ion-content>
+
+<ng-template #FavoriteList let-item>
+  <h2>{{ item?.FUNIT }}</h2>
+  <h2>{{ item?.FUNITSN }}</h2>
+</ng-template>

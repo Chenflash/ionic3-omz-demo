@@ -19,6 +19,7 @@ export class FavoriteListBasePage extends BusinessPage {
 
     constructor(
         controller: string,
+        mainCollection: string,
         protected businessService: BusinessService,
         protected services: ServicesPackage,
         protected navCtrl: NavController
