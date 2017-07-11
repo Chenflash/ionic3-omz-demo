@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, IonicApp, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { ModalService } from '../providers/services/ModalService';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/common/login/login';
 import { UnitFavoritePage } from '../pages/lookup/UnitFavorite';
+
+import { ModalService } from '../providers/services/ModalService';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,15 +15,17 @@ import { UnitFavoritePage } from '../pages/lookup/UnitFavorite';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
-
-  pages: Array<{ title: string, component: any }>;
+  private backButtonPressed: boolean = false;
+  private rootPage: any = HomePage;
+  private pages: Array<{ title: string, component: any }>;
 
   constructor(
+    public ionicApp: IonicApp,
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public modalSevice: ModalService) {
+    public modalSevice: ModalService,
+    public toastCtrl: ToastController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -40,10 +42,50 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
+      // register back button action
+      this.registerBackButtonAction();
+
       // Open Login Page
       let loginPage = this.modalSevice.ShowModalPage(LoginPage, null);
       loginPage.present();
     });
+  }
+
+  registerBackButtonAction() {
+    this.platform.registerBackButtonAction(() => {
+      // TODO: 需要判别是否是登录画面
+      let activePortal = this.ionicApp._modalPortal.getActive();
+      if (activePortal) {
+        // 如果是登录画面这双击返回键退出 
+        this.showExit();
+      } else {
+        if (this.nav.canGoBack()) {
+          // 如果是子画面则返回上级画面
+          this.nav.pop();
+        } else if (this.nav.getActive().component.name !== "HomePage") {
+          // 否则 如果不是欢迎画面则返回欢迎画面
+          this.nav.setRoot(HomePage);
+        } else {
+          // 如果是欢迎画面则双击返回键退出
+          this.showExit();
+        }
+      }
+    }, 1)
+  }
+
+  // exit application by double click
+  showExit() {
+    if (this.backButtonPressed) {
+      this.platform.exitApp();
+    } else {
+      this.toastCtrl.create({
+        message: '再按一次退出应用',
+        duration: 2000,
+        position: 'bottom'
+      }).present();
+      this.backButtonPressed = true;
+      setTimeout(() => this.backButtonPressed = false, 2000);
+    }
   }
 
   openPage(page) {

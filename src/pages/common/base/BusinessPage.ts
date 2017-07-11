@@ -17,8 +17,8 @@ export abstract class BusinessPage extends BasePage {
             exception.ErrorID,
             exception.ErrorMessage,
             () => {
+                // session timeout
                 if (exception.ErrorID === "000500") {
-                    // session timeout
                     // clear session
                     Session.Instance.Clear();
                     // Open Login Page
