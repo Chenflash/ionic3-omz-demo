@@ -1,5 +1,5 @@
 import { BasePage } from './BasePage';
-import { LoginPage } from '../login/login';
+import { LoginPage } from '../../login/login';
 import { PDAResponseException } from '../../../models/PDAResponse';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 import { Session } from '../../../providers/sessions/session';

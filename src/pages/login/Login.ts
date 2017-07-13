@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ViewController } from 'ionic-angular';
-import { Session } from '../../../providers/sessions/session';
-import { ServicesPackage } from '../../../providers/services/ServicesPackage';
-import { BasePage } from '../base/BasePage';
+import { Session } from '../../providers/sessions/session';
+import { ServicesPackage } from '../../providers/services/ServicesPackage';
+import { BasePage } from '../common/base/BasePage';
 
 @Component({
   selector: 'page-login',
