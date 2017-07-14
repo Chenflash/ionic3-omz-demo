@@ -3,9 +3,7 @@ import { Nav, Platform, IonicApp, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
-import { UnitFavoritePage } from '../pages/lookup/UnitFavorite';
 
 import { ModalService } from '../providers/services/ModalService';
 
@@ -16,7 +14,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   private backButtonPressed: boolean = false;
-  private rootPage: any = HomePage;
+  private rootPage: any = 'HomePage';
   private pages: Array<{ title: string, component: any }>;
 
   constructor(
@@ -30,8 +28,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'UnitFavorite', component: UnitFavoritePage }
+      { title: 'Home', component: 'HomePage' },
+      { title: 'UnitFavorite', component: 'UnitFavoritePage' }
     ];
   }
 
@@ -64,7 +62,7 @@ export class MyApp {
           this.nav.pop();
         } else if (this.nav.getActive().component.name !== "HomePage") {
           // 否则 如果不是欢迎画面则返回欢迎画面
-          this.nav.setRoot(HomePage);
+          this.nav.setRoot('HomePage');
         } else {
           // 如果是欢迎画面则双击返回键退出
           this.showExit();

@@ -1,0 +1,5 @@
+<ion-list>
+    <button ion-item *ngFor="let item of this.DataSource" (click)="onItemClick(item, $event)" (press)="onItemHold(item, $event)">
+        <ng-container [ngTemplateOutlet]="this.TemplateOutlet" [ngTemplateOutletContext]="{$implicit:item}"></ng-container>
+    </button>
+</ion-list>

@@ -1,17 +1,9 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Unit Favorite</ion-title>
-  </ion-navbar>
+  <amc-navbar [title]='title'></amc-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-list>
-    <button ion-item *ngFor="let item of this.dataBind[this.masterCollection]" (click)="onItemClick(item, $event)" (press)="onItemHold(item, $event)">
-       <ng-container [ngTemplateOutlet]="FavoriteList" [ngTemplateOutletContext]="{$implicit:item}"></ng-container>
-    </button>
-  </ion-list>
+  <amc-list [TemplateOutlet]="FavoriteList" [DataSource]='this.dataBind[this.masterCollection]' (ItemClick)="onItemClick($event)"
+    (ItemHold)="onItemHold($event)"></amc-list>
 </ion-content>
 
 <ng-template #FavoriteList let-item>

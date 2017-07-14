@@ -15,6 +15,7 @@ import { MAIN_COLLECTION, CONTROLLER } from '../common/tokens/PageTokens';
     ]
 })
 export class UnitEntryPage extends EntryBasePage {
+    title: string = 'Unit Entry';
     constructor(
         protected navCtrl: NavController,
         protected navParam: NavParams,

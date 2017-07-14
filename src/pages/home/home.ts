@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { IonicPage } from 'ionic-angular';
 
+@IonicPage()
 @Component({
-    templateUrl: "Home.html"
+    templateUrl: "home.html"
 })
 export class HomePage {
+    title: string = 'Home';
 }

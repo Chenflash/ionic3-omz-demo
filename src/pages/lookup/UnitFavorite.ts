@@ -1,10 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { FavoriteListBasePage } from '../common/base/FavoriteListBasePage';
 import { BusinessService } from '../../providers/services/BusinessService';
 import { ServicesPackage } from '../../providers/services/ServicesPackage';
 import { CONTROLLER, MAIN_COLLECTION } from '../common/tokens/PageTokens';
 
+@IonicPage()
 @Component({
     templateUrl: "UnitFavorite.html",
     providers: [
@@ -13,6 +14,7 @@ import { CONTROLLER, MAIN_COLLECTION } from '../common/tokens/PageTokens';
     ]
 })
 export class UnitFavoritePage extends FavoriteListBasePage {
+    title: string = 'FavoriteList';
     constructor(
         protected navCtrl: NavController,
         protected navParam: NavParams,

@@ -114,12 +114,12 @@ export class FavoriteListBasePage extends BusinessPage {
         return buttons;
     }
 
-    protected onItemHold(item, event) {
+    protected onItemHold(item) {
         this.selectedItem = item;
         this.services.ActionSheetService.Show(null, null, this.actionSheetButtons);
     }
 
-    protected onItemClick(item, event) {
+    protected onItemClick(item) {
         let options: PDAPageOpenOption = new PDAPageOpenOption(item, PDAPageOpenMode.Modify, null);
         this.navCtrl.push(this.constructor.name.replace("Favorite", "Entry"), options);
     }

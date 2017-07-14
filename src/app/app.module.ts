@@ -9,9 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { APPCONFIG, APPCONFIG_TOKEN } from './app.config';
 // pages
 import { MyApp } from './app.component';
-import { LoginPage } from '../pages/common/login/login';
-import { HomePage } from '../pages/home/home';
-import { UnitFavoritePage } from '../pages/lookup/UnitFavorite';
+import { LoginPage } from '../pages/login/login';
 // rxjs
 import '../libs/rxjs-extensions';
 // providers
@@ -27,9 +25,7 @@ import { ServicesPackage } from '../providers/services/ServicesPackage';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    LoginPage,
-    UnitFavoritePage
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -40,9 +36,7 @@ import { ServicesPackage } from '../providers/services/ServicesPackage';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    LoginPage,
-    UnitFavoritePage
+    LoginPage
   ],
   providers: [
     StatusBar,
