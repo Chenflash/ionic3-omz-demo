@@ -2,14 +2,16 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { UnitEntryPage } from './UnitEntry';
 import { ComponentModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
-    UnitEntryPage
+    UnitEntryPage,
   ],
   imports: [
     ComponentModule,
-    IonicPageModule.forChild(UnitEntryPage)
+    DirectivesModule,
+    IonicPageModule.forChild(UnitEntryPage),
   ],
   exports: [
     UnitEntryPage

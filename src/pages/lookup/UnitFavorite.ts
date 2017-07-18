@@ -14,7 +14,6 @@ import { CONTROLLER, MAIN_COLLECTION } from '../common/tokens/PageTokens';
     ]
 })
 export class UnitFavoritePage extends FavoriteListBasePage {
-    title: string = 'FavoriteList';
     constructor(
         protected navCtrl: NavController,
         protected navParam: NavParams,

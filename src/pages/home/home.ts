@@ -6,5 +6,5 @@ import { IonicPage } from 'ionic-angular';
     templateUrl: "home.html"
 })
 export class HomePage {
-    title: string = 'Home';
+ 
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { AmmicNavbarComponent } from './ammic-navbar/ammic-navbar';
-import { AmmicFavoriteListComponent } from './ammic-favorite-list/ammic-favorite-list'
+import { AmmicNavbarComponent } from './ammic-navbar/ammic-navbar.component';
+import { AmmicFavoriteListComponent } from './ammic-favorite-list/ammic-favorite-list.component'
 
 @NgModule({
     declarations: [

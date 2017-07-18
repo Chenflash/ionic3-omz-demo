@@ -5,7 +5,7 @@ import { ComponentModule } from '../../components/components.module';
 
 @NgModule({
     declarations: [
-        HomePage
+        HomePage,
     ],
     imports: [
         ComponentModule,

@@ -1,5 +1,5 @@
 <ion-header>
-  <amc-navbar [title]='title'></amc-navbar>
+  <amc-navbar title='FavoriteList'></amc-navbar>
 </ion-header>
 <ion-content padding>
   <amc-list [TemplateOutlet]="FavoriteList" [DataSource]='this.dataBind[this.masterCollection]' (ItemClick)="onItemClick($event)"

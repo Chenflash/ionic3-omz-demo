@@ -1,10 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { EntryBasePage } from '../common/base/EntryBasePage';
 import { BusinessService } from '../../providers/services/BusinessService';
 import { ServicesPackage } from '../../providers/services/ServicesPackage';
 import { MAIN_COLLECTION, CONTROLLER } from '../common/tokens/PageTokens';
+import { AmmicKeyfieldDirective } from '../../directives/ammic-keyfield/ammic-keyfield.directive';
 
 @IonicPage()
 @Component({
@@ -14,8 +15,9 @@ import { MAIN_COLLECTION, CONTROLLER } from '../common/tokens/PageTokens';
         { provide: CONTROLLER, useValue: "Unit" }
     ]
 })
-export class UnitEntryPage extends EntryBasePage {
-    title: string = 'Unit Entry';
+export class UnitEntryPage extends EntryBasePage implements AfterViewInit {
+    @ViewChildren(AmmicKeyfieldDirective)
+    keyfields: QueryList<AmmicKeyfieldDirective>;
     constructor(
         protected navCtrl: NavController,
         protected navParam: NavParams,
@@ -40,5 +42,9 @@ export class UnitEntryPage extends EntryBasePage {
             FUNIT: ['', [Validators.required]],
             FUNITSN: ['']
         });
+    }
+
+    ngAfterViewInit(){
+        console.dir(this.keyfields);
     }
 }
