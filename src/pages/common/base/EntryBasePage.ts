@@ -1,11 +1,15 @@
+import { ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { NavParams, NavController } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
 import { BusinessPage } from './BusinessPage';
 import { PDAPageOpenOption, PDAPageOpenMode } from '../../../models/PDAPageOpenOption';
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
+import { AmmicKeyfieldDirective } from '../../../directives/ammic-keyfield/ammic-keyfield.directive';
 
-export class EntryBasePage extends BusinessPage {
+export class EntryBasePage extends BusinessPage implements AfterViewInit{
+    @ViewChildren(AmmicKeyfieldDirective)
+    keyfields: QueryList<AmmicKeyfieldDirective>;
     protected entryForm: FormGroup;
     protected dataBind: any = {};
     protected extraInfo: any = {};
@@ -235,5 +239,8 @@ export class EntryBasePage extends BusinessPage {
             default:
                 break;
         }
+    }
+    ngAfterViewInit() {
+        this.keyfields.forEach(keyfield => keyfield.setDisplay());
     }
 }

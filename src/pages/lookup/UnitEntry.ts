@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { EntryBasePage } from '../common/base/EntryBasePage';
@@ -15,9 +15,7 @@ import { AmmicKeyfieldDirective } from '../../directives/ammic-keyfield/ammic-ke
         { provide: CONTROLLER, useValue: "Unit" }
     ]
 })
-export class UnitEntryPage extends EntryBasePage implements AfterViewInit {
-    @ViewChildren(AmmicKeyfieldDirective)
-    keyfields: QueryList<AmmicKeyfieldDirective>;
+export class UnitEntryPage extends EntryBasePage{
     constructor(
         protected navCtrl: NavController,
         protected navParam: NavParams,
@@ -42,9 +40,5 @@ export class UnitEntryPage extends EntryBasePage implements AfterViewInit {
             FUNIT: ['', [Validators.required]],
             FUNITSN: ['']
         });
-    }
-
-    ngAfterViewInit(){
-        console.dir(this.keyfields);
     }
 }

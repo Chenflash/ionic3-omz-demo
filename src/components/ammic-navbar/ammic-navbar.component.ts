@@ -6,10 +6,11 @@ import { Component, Input } from '@angular/core';
 })
 export class AmmicNavbarComponent {
 
-  @Input()title: string;
+  @Input()
+  title: string;
 
   constructor() {
-    
+
   }
 
 }
