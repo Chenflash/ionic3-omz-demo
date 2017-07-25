@@ -5,7 +5,6 @@ import { EntryBasePage } from '../common/base/EntryBasePage';
 import { BusinessService } from '../../providers/services/BusinessService';
 import { ServicesPackage } from '../../providers/services/ServicesPackage';
 import { MAIN_COLLECTION, CONTROLLER } from '../common/tokens/PageTokens';
-import { AmmicKeyfieldDirective } from '../../directives/ammic-keyfield/ammic-keyfield.directive';
 
 @IonicPage()
 @Component({
@@ -15,7 +14,7 @@ import { AmmicKeyfieldDirective } from '../../directives/ammic-keyfield/ammic-ke
         { provide: CONTROLLER, useValue: "Unit" }
     ]
 })
-export class UnitEntryPage extends EntryBasePage{
+export class UnitEntryPage extends EntryBasePage {
     constructor(
         protected navCtrl: NavController,
         protected navParam: NavParams,

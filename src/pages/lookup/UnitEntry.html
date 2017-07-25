@@ -1,16 +1,10 @@
 <ion-header>
-  <amc-navbar title = "Unit Entry"></amc-navbar>
+  <amc-navbar title="Unit Entry"></amc-navbar>
 </ion-header>
 <ion-content padding>
   <form [formGroup]="entryForm" (ngSubmit)="OnSubmit(entryForm)" novalidate>
-    <ion-item>
-      <ion-label color="primary">Unit</ion-label>
-      <ion-input type="text" formControlName="FUNIT" value="{{this.dataBind[this.collection][0]?.FUNIT}}" keyfield></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary">Unit Name</ion-label>
-      <ion-input type="text" formControlName="FUNITSN" value="{{this.dataBind[this.collection][0]?.FUNITSN}}"></ion-input>
-    </ion-item>
-     <button ion-button block type="submit" [disabled]="entryForm.invalid">更新</button>
+    <amc-textbox label="Unit" formControlName="FUNIT" keyfield></amc-textbox>
+    <amc-textbox label="Unit Name" formControlName="FUNITSN"></amc-textbox>
+    <button ion-button block type="submit" [disabled]="entryForm.invalid">更新</button>
   </form>
 </ion-content>

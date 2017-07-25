@@ -7,14 +7,15 @@ import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 import { AmmicKeyfieldDirective } from '../../../directives/ammic-keyfield/ammic-keyfield.directive';
 
-export class EntryBasePage extends BusinessPage implements AfterViewInit{
+export class EntryBasePage extends BusinessPage implements AfterViewInit {
+
     @ViewChildren(AmmicKeyfieldDirective)
     keyfields: QueryList<AmmicKeyfieldDirective>;
+
     protected entryForm: FormGroup;
     protected dataBind: any = {};
     protected extraInfo: any = {};
     protected dataDto: any = {};
-
     protected openMode: PDAPageOpenMode = PDAPageOpenMode.None;
 
     private controller: string;
@@ -80,6 +81,11 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit{
     protected OnQuerySuccess(data: any, extraInfo: any) {
         this.dataBind = data;
         this.extraInfo = extraInfo;
+
+        if (this.openMode != PDAPageOpenMode.AddNew) {
+            // update value to form
+            this.entryForm.patchValue(data[this.collection][0]);
+        }
     }
 
     protected OnPreQuery() { }
@@ -105,7 +111,7 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit{
                     // dismiss loading
                     this.services.LoadingService.Dismiss();
                     // show toast
-                    this.services.ToastService.Show("Add Successfully.");
+                    this.services.ToastService.Show("Create Successfully.");
                     // post query
                     this.OnPostAddNew();
                 } else {
@@ -126,6 +132,8 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit{
     protected OnAddNewSuccess(data: any, extraInfo: any) {
         this.dataBind = data;
         this.extraInfo = extraInfo;
+        // update value to form
+        this.entryForm.patchValue(data[this.collection][0]);
         // change page mode
         this.openMode = PDAPageOpenMode.Modify;
     }
@@ -172,6 +180,8 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit{
     protected OnUpdateSuccess(data: any, extraInfo: any) {
         this.dataBind = data;
         this.extraInfo = extraInfo;
+        // update value to form
+        this.entryForm.patchValue(data[this.collection][0]);
     }
 
     protected OnPreUpdate() { }
@@ -195,7 +205,7 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit{
                     // dismiss loading
                     this.services.LoadingService.Dismiss();
                     // show toast
-                    this.services.ToastService.Show("Update Successfully.");
+                    this.services.ToastService.Show("Delete Successfully.");
                     // post query
                     this.OnPostDelete();
                 } else {
@@ -214,7 +224,6 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit{
     }
 
     protected OnDeleteSuccess(data: any, extraInfo: any) {
-        debugger;
         this.navCtrl.pop();
     }
 
@@ -240,7 +249,10 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit{
                 break;
         }
     }
+
     ngAfterViewInit() {
-        this.keyfields.forEach(keyfield => keyfield.setDisplay());
+        if (this.openMode != PDAPageOpenMode.AddNew) {
+            this.keyfields.forEach(keyfield => keyfield.setDisplay());
+        }
     }
 }
