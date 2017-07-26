@@ -6,11 +6,15 @@ import { PDAPageOpenOption, PDAPageOpenMode } from '../../../models/PDAPageOpenO
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 import { AmmicKeyfieldDirective } from '../../../directives/ammic-keyfield/ammic-keyfield.directive';
+import { AmmicValidationDirective } from '../../../directives/ammic-validation/ammic-validation.directive';
 
 export class EntryBasePage extends BusinessPage implements AfterViewInit {
 
     @ViewChildren(AmmicKeyfieldDirective)
     keyfields: QueryList<AmmicKeyfieldDirective>;
+
+    @ViewChildren(AmmicValidationDirective)
+    validationFields: QueryList<AmmicValidationDirective>;
 
     protected entryForm: FormGroup;
     protected dataBind: any = {};
@@ -83,15 +87,13 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit {
         this.extraInfo = extraInfo;
 
         if (this.openMode != PDAPageOpenMode.AddNew) {
-            // update value to form
+            // patch value to form
             this.entryForm.patchValue(data[this.collection][0]);
         }
     }
 
     protected OnPreQuery() { }
     protected OnPostQuery() { }
-
-    protected OnValidation(): void { }
 
     protected OnAddNew(value: any): void {
         // do something before update
@@ -132,7 +134,7 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit {
     protected OnAddNewSuccess(data: any, extraInfo: any) {
         this.dataBind = data;
         this.extraInfo = extraInfo;
-        // update value to form
+        // patch value to form
         this.entryForm.patchValue(data[this.collection][0]);
         // change page mode
         this.openMode = PDAPageOpenMode.Modify;
@@ -180,7 +182,7 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit {
     protected OnUpdateSuccess(data: any, extraInfo: any) {
         this.dataBind = data;
         this.extraInfo = extraInfo;
-        // update value to form
+        // patch value to form
         this.entryForm.patchValue(data[this.collection][0]);
     }
 
@@ -250,9 +252,55 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit {
         }
     }
 
+    public OnValidation(currentTable: string, currentIndex: number, currentField: string) {
+        // create data transfer object
+        let dataDto = JSON.parse(JSON.stringify(this.dataBind));
+        dataDto[this.collection] = [];
+        dataDto[this.collection].push(this.entryForm.value);
+        // show waiting loading
+        this.services.LoadingService.ShowWaitLoading();
+        // set extraInfo
+        if (!this.extraInfo) { this.extraInfo = {}; }
+        this.extraInfo.currentTable = currentTable;
+        this.extraInfo.currentIndex = 0;
+        this.extraInfo.currentField = currentField;
+        // validation
+        this.service.Validation(this.controller, dataDto, this.extraInfo)
+            .subscribe(response => {
+                if (!response.ResponseException) {
+                    // query success
+                    this.OnValidationSuccess(response.Data, response.ExtraInfo);
+                    // dismiss loading
+                    this.services.LoadingService.Dismiss();
+                } else {
+                    // dismiss loading
+                    this.services.LoadingService.Dismiss();
+                    // show alert
+                    this.ProcessResponseException(response.ResponseException);
+                }
+            },
+            error => {
+                // show alert
+                this.services.AlertService.ShowError("system", error);
+                // dismiss loading
+                this.services.LoadingService.Dismiss();
+            });
+    }
+
+    protected OnValidationSuccess(data: any, extraInfo: any) {
+        this.dataBind = data;
+        this.extraInfo = extraInfo;
+        // patch value to form
+        this.entryForm.patchValue(data[this.collection][0]);
+    }
+
     ngAfterViewInit() {
+        // register key fields
         if (this.openMode != PDAPageOpenMode.AddNew) {
             this.keyfields.forEach(keyfield => keyfield.setDisplay());
         }
+
+        // register validation fields
+        this.validationFields.forEach(validationField => validationField.ParentPage = this)
     }
 }

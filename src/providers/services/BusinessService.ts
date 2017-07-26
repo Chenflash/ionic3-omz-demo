@@ -68,4 +68,18 @@ export class BusinessService {
 
         return this.services.HttpService.Post(controller, "Delete", requestData);
     }
+
+    public Validation(controller: string, data: any, extraInfo: any): Observable<PDAResponse> {
+         let requestData: PDARequest = {
+            SysInfo: {
+                SessionID: Session.Instance.SessionID,
+                FunctionID: null, //TODO: Function ID
+                Updteprg: null, //TODO: Update Programme
+            },
+            Data: data,
+            ExtraInfo: extraInfo
+        };
+
+        return this.services.HttpService.Post(controller, "Validate", requestData);
+    }
 }
