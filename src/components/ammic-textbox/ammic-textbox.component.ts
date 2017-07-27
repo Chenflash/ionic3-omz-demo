@@ -1,12 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef, Renderer2 } from '@angular/core';
+import { AmmicInputBaseComponents } from '../base/AmmicInputBaseComponent';
 
 @Component({
   selector: 'amc-textbox',
   templateUrl: 'ammic-textbox.component.html'
 })
-export class AmmicTextBoxComponent {
+export class AmmicTextBoxComponent extends AmmicInputBaseComponents {
   @Input('label')
-  protected label: string;
+  public label: string;
 
-  constructor() { }
+  public get InputComponent(): ElementRef {
+    return this.elementRef.nativeElement.querySelector('input');
+  }
+
+  public get BindField(): string {
+    return this.elementRef.nativeElement.attributes["formcontrolname"].value;
+  }
+
+  constructor(
+    public elementRef: ElementRef,
+    public renderer: Renderer2
+  ) {
+    super(renderer);
+  }
 }

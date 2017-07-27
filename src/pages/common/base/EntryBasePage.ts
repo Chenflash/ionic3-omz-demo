@@ -1,4 +1,4 @@
-import { ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { ViewChildren, QueryList, OnDestroy } from '@angular/core';
 import { NavParams, NavController } from 'ionic-angular';
 import { FormGroup } from '@angular/forms';
 import { BusinessPage } from './BusinessPage';
@@ -6,15 +6,16 @@ import { PDAPageOpenOption, PDAPageOpenMode } from '../../../models/PDAPageOpenO
 import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 import { AmmicKeyfieldDirective } from '../../../directives/ammic-keyfield/ammic-keyfield.directive';
-import { AmmicValidationDirective } from '../../../directives/ammic-validation/ammic-validation.directive';
+import { AmmicTextBoxComponent } from '../../../components/ammic-textbox/ammic-textbox.component';
+import { AmmicInputBaseComponents } from '../../../components/base/AmmicInputBaseComponent';
 
-export class EntryBasePage extends BusinessPage implements AfterViewInit {
-
+export class EntryBasePage extends BusinessPage implements OnDestroy {
     @ViewChildren(AmmicKeyfieldDirective)
     keyfields: QueryList<AmmicKeyfieldDirective>;
+    @ViewChildren(AmmicTextBoxComponent)
+    textboxComponents: QueryList<AmmicInputBaseComponents>;
 
-    @ViewChildren(AmmicValidationDirective)
-    validationFields: QueryList<AmmicValidationDirective>;
+    protected inputComponents: AmmicInputBaseComponents[] = [];
 
     protected entryForm: FormGroup;
     protected dataBind: any = {};
@@ -54,6 +55,24 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit {
     protected OnInitialize() {
         this.OnPreQuery();
         this.OnQuery();
+    }
+
+    protected OnAfterViewInit() {
+        // register key fields
+        if (this.openMode != PDAPageOpenMode.AddNew) {
+            this.keyfields.forEach(keyfield => keyfield.setDisplay());
+        }
+
+        // merge input components
+        this.inputComponents = this.textboxComponents.toArray();
+        // register validation fields
+        this.inputComponents
+            .filter(inputComponent => inputComponent.validation)
+            .forEach(inputComponent => {
+                inputComponent.OnValidation.subscribe(event => {
+                    this.OnValidation(this.collection, 0, event.bindField);
+                })
+            });
     }
 
     protected OnQuery(): void {
@@ -257,8 +276,6 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit {
         let dataDto = JSON.parse(JSON.stringify(this.dataBind));
         dataDto[this.collection] = [];
         dataDto[this.collection].push(this.entryForm.value);
-        // show waiting loading
-        this.services.LoadingService.ShowWaitLoading();
         // set extraInfo
         if (!this.extraInfo) { this.extraInfo = {}; }
         this.extraInfo.currentTable = currentTable;
@@ -273,8 +290,6 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit {
                     // dismiss loading
                     this.services.LoadingService.Dismiss();
                 } else {
-                    // dismiss loading
-                    this.services.LoadingService.Dismiss();
                     // show alert
                     this.ProcessResponseException(response.ResponseException);
                 }
@@ -282,8 +297,6 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit {
             error => {
                 // show alert
                 this.services.AlertService.ShowError("system", error);
-                // dismiss loading
-                this.services.LoadingService.Dismiss();
             });
     }
 
@@ -294,13 +307,5 @@ export class EntryBasePage extends BusinessPage implements AfterViewInit {
         this.entryForm.patchValue(data[this.collection][0]);
     }
 
-    ngAfterViewInit() {
-        // register key fields
-        if (this.openMode != PDAPageOpenMode.AddNew) {
-            this.keyfields.forEach(keyfield => keyfield.setDisplay());
-        }
-
-        // register validation fields
-        this.validationFields.forEach(validationField => validationField.ParentPage = this)
-    }
+    ngOnDestroy() { }
 }
