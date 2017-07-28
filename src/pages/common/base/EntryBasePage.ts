@@ -14,7 +14,7 @@ export class EntryBasePage extends BusinessPage implements OnDestroy {
     keyfields: QueryList<AmmicKeyfieldDirective>;
     @ViewChildren(AmmicTextBoxComponent)
     textboxComponents: QueryList<AmmicInputBaseComponents>;
-
+    // all input components in page
     protected inputComponents: AmmicInputBaseComponents[] = [];
 
     protected entryForm: FormGroup;
@@ -109,6 +109,9 @@ export class EntryBasePage extends BusinessPage implements OnDestroy {
             // patch value to form
             this.entryForm.patchValue(data[this.collection][0]);
         }
+
+        // refresh input value
+        this.inputComponents.forEach(inputComponent => inputComponent.RefreshInputValue());
     }
 
     protected OnPreQuery() { }
@@ -305,6 +308,8 @@ export class EntryBasePage extends BusinessPage implements OnDestroy {
         this.extraInfo = extraInfo;
         // patch value to form
         this.entryForm.patchValue(data[this.collection][0]);
+        // refresh input value
+        this.inputComponents.forEach(inputComponent => inputComponent.RefreshInputValue());
     }
 
     ngOnDestroy() { }
