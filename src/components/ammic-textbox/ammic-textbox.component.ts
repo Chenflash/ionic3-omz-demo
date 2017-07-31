@@ -1,11 +1,11 @@
 import { Component, Input, ElementRef, Renderer2 } from '@angular/core';
-import { AmmicInputBaseComponents } from '../base/AmmicInputBaseComponent';
+import { AmmicInputBaseComponent } from '../base/AmmicInputBaseComponent';
 
 @Component({
   selector: 'amc-textbox',
   templateUrl: 'ammic-textbox.component.html'
 })
-export class AmmicTextBoxComponent extends AmmicInputBaseComponents {
+export class AmmicTextBoxComponent extends AmmicInputBaseComponent {
   @Input('label')
   public label: string;
 

@@ -33,10 +33,10 @@ export class FavoriteListBasePage extends BusinessPage {
     protected OnInitialize() {
         this.InitActionSheet();
         this.OnPreQuery();
-        this.OnQery();
+        this.OnQuery();
     }
 
-    protected OnQery(): void {
+    protected OnQuery(): void {
         this.services.LoadingService.ShowWaitLoading();
         this.service.Query(this.controller, this.dataBind, this.extraInfo)
             .subscribe(response => {

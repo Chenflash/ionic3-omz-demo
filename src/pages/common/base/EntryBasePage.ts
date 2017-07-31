@@ -7,15 +7,16 @@ import { BusinessService } from '../../../providers/services/BusinessService';
 import { ServicesPackage } from '../../../providers/services/ServicesPackage';
 import { AmmicKeyfieldDirective } from '../../../directives/ammic-keyfield/ammic-keyfield.directive';
 import { AmmicTextBoxComponent } from '../../../components/ammic-textbox/ammic-textbox.component';
-import { AmmicInputBaseComponents } from '../../../components/base/AmmicInputBaseComponent';
+import { AmmicInputBaseComponent } from '../../../components/base/AmmicInputBaseComponent';
 
 export class EntryBasePage extends BusinessPage implements OnDestroy {
     @ViewChildren(AmmicKeyfieldDirective)
     keyfields: QueryList<AmmicKeyfieldDirective>;
     @ViewChildren(AmmicTextBoxComponent)
-    textboxComponents: QueryList<AmmicInputBaseComponents>;
+    textboxComponents: QueryList<AmmicTextBoxComponent>;
+
     // all input components in page
-    protected inputComponents: AmmicInputBaseComponents[] = [];
+    protected inputComponents: AmmicInputBaseComponent[] = [];
 
     protected entryForm: FormGroup;
     protected dataBind: any = {};
@@ -58,19 +59,32 @@ export class EntryBasePage extends BusinessPage implements OnDestroy {
     }
 
     protected OnAfterViewInit() {
+        this.InitializeComponents();
+    }
+
+    protected InitializeComponents() {
+        this.InitializeKeyFieldComponents();
+        this.InitializeInputComponents();
+    }
+
+    protected InitializeKeyFieldComponents() {
         // register key fields
         if (this.openMode != PDAPageOpenMode.AddNew) {
             this.keyfields.forEach(keyfield => keyfield.setDisplay());
         }
+    }
 
+    protected InitializeInputComponents() {
         // merge input components
+        // TODO: merge other input components.
         this.inputComponents = this.textboxComponents.toArray();
+
         // register validation fields
         this.inputComponents
             .filter(inputComponent => inputComponent.validation)
             .forEach(inputComponent => {
                 inputComponent.OnValidation.subscribe(event => {
-                    this.OnValidation(this.collection, 0, event.bindField);
+                    this.OnValidation(this.collection, 0, event.BindField, event.Component);
                 })
             });
     }
@@ -274,13 +288,13 @@ export class EntryBasePage extends BusinessPage implements OnDestroy {
         }
     }
 
-    public OnValidation(currentTable: string, currentIndex: number, currentField: string) {
+    public OnValidation(currentTable: string, currentIndex: number, currentField: string, component: AmmicInputBaseComponent = null) {
         // create data transfer object
         let dataDto = JSON.parse(JSON.stringify(this.dataBind));
         dataDto[this.collection] = [];
         dataDto[this.collection].push(this.entryForm.value);
         // set extraInfo
-        if (!this.extraInfo) { this.extraInfo = {}; }
+        this.extraInfo = this.extraInfo || {};
         this.extraInfo.currentTable = currentTable;
         this.extraInfo.currentIndex = 0;
         this.extraInfo.currentField = currentField;
@@ -289,9 +303,7 @@ export class EntryBasePage extends BusinessPage implements OnDestroy {
             .subscribe(response => {
                 if (!response.ResponseException) {
                     // query success
-                    this.OnValidationSuccess(response.Data, response.ExtraInfo);
-                    // dismiss loading
-                    this.services.LoadingService.Dismiss();
+                    this.OnValidationSuccess(response.Data, response.ExtraInfo, component);
                 } else {
                     // show alert
                     this.ProcessResponseException(response.ResponseException);
@@ -303,13 +315,15 @@ export class EntryBasePage extends BusinessPage implements OnDestroy {
             });
     }
 
-    protected OnValidationSuccess(data: any, extraInfo: any) {
+    protected OnValidationSuccess(data: any, extraInfo: any, component: AmmicInputBaseComponent) {
         this.dataBind = data;
         this.extraInfo = extraInfo;
         // patch value to form
         this.entryForm.patchValue(data[this.collection][0]);
         // refresh input value
-        this.inputComponents.forEach(inputComponent => inputComponent.RefreshInputValue());
+        if (component != null) {
+            component.RefreshInputValue();
+        }
     }
 
     ngOnDestroy() { }

@@ -1,6 +1,6 @@
 import { Input, EventEmitter, Renderer2, AfterViewInit, OnDestroy } from '@angular/core';
 
-export abstract class AmmicInputBaseComponents implements AfterViewInit, OnDestroy {
+export abstract class AmmicInputBaseComponent implements AfterViewInit, OnDestroy {
     @Input('validation')
     public validation: boolean;
     // abstract methods
@@ -33,13 +33,15 @@ export abstract class AmmicInputBaseComponents implements AfterViewInit, OnDestr
     ngAfterViewInit() {
         // --- lost focus event listen --->
         // initialize event argument
-        let eventArgs: AmmicValidationEventArgs = {
-            bindField: this.BindField
-        };
+        let eventArgs: AmmicValidationEventArgs = new AmmicValidationEventArgs
+        {
+            eventArgs.Component = this;
+            eventArgs.BindField = this.BindField;
+        }
+
         // add listener to LostFocus event
         this.lostFocusListener = this.renderer.listen(this.InputComponent, 'blur', (event) => {
             if (this.CurrentValue !== this.PreviousValue) {
-                debugger;
                 this.validationEventEmmiter.emit(eventArgs);
             }
         });
@@ -56,5 +58,21 @@ export abstract class AmmicInputBaseComponents implements AfterViewInit, OnDestr
 }
 
 export class AmmicValidationEventArgs {
-    public bindField: string;
+    // Property: Component
+    private component: AmmicInputBaseComponent;
+    public get Component(): AmmicInputBaseComponent {
+        return this.component;
+    }
+    public set Component(value: AmmicInputBaseComponent) {
+        this.component = value;
+    }
+
+    // Property: BindField
+    private bindField: string;
+    public get BindField(): string {
+        return this.bindField;
+    }
+    public set BindField(value: string) {
+        this.bindField = value;
+    }
 }
