@@ -5,6 +5,7 @@
   <form [formGroup]="entryForm" (ngSubmit)="OnSubmit(entryForm)" novalidate>
     <amc-textbox label="Unit" formControlName="FUNIT" keyfield></amc-textbox>
     <amc-textbox label="Unit Name" formControlName="FUNITSN" validation="true"></amc-textbox>
+    <amc-textbox label="Unit Type" formControlName="FUNITTYP"></amc-textbox>
     <button ion-button block type="submit" [disabled]="entryForm.invalid">更新</button>
   </form>
 </ion-content>

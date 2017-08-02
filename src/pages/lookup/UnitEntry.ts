@@ -37,7 +37,8 @@ export class UnitEntryPage extends EntryBasePage {
         super.OnInitialize();
         this.entryForm = this.formBuilder.group({
             FUNIT: ['', [Validators.required]],
-            FUNITSN: ['']
+            FUNITSN: [''],
+            FUNITTYP: ['']
         });
     }
 }
