@@ -1,6 +1,11 @@
 <ion-navbar>
-    <button ion-button menuToggle>
+  <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{title}}</ion-title>
+  <ion-title>{{title}}</ion-title>
+  <ion-buttons *ngIf="showOptions" end>
+    <button ion-button icon-only (click)="openOption()">
+        <ion-icon name="options"></ion-icon>
+    </button>
+  </ion-buttons>
 </ion-navbar>

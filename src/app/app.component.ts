@@ -2,9 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, IonicApp, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+// pages
 import { LoginPage } from '../pages/login/login';
-
+// services
 import { ModalService } from '../providers/services/ModalService';
 
 @Component({
@@ -51,27 +51,27 @@ export class MyApp {
 
   registerBackButtonAction() {
     this.platform.registerBackButtonAction(() => {
-      // TODO: 需要判别是否是登录画面
+      // TODO: need to check login page
       let activePortal = this.ionicApp._modalPortal.getActive();
       if (activePortal) {
-        // 如果是登录画面这双击返回键退出 
+        // press twice [BACK] to exit when login page 
         this.showExit();
       } else {
         if (this.nav.canGoBack()) {
-          // 如果是子画面则返回上级画面
+          // press [BACK] to return parent page when child page
           this.nav.pop();
         } else if (this.nav.getActive().component.name !== "HomePage") {
-          // 否则 如果不是欢迎画面则返回欢迎画面
+          // press [BACK] to return welcome page when root page
           this.nav.setRoot('HomePage');
         } else {
-          // 如果是欢迎画面则双击返回键退出
+          // press twice [BACK] to exit when welcome page
           this.showExit();
         }
       }
     }, 1)
   }
 
-  // exit application by double click
+  // exit application by double press [BACK]
   showExit() {
     if (this.backButtonPressed) {
       this.platform.exitApp();
